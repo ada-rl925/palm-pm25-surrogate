@@ -1,0 +1,68 @@
+_note: 'transfer1_1v1: train on 1 tile(s), test held-out tile [200, 400, 200, 400];
+  hw0/nonneg/z11'
+data:
+  batch_size: 8
+  dataloader: v2
+  em_bg_norm: true
+  global_pm_norm: false
+  num_workers: 6
+  roi: null
+  t_hist: 1
+  test_hours:
+    london_cm20190720-23:
+    - 1
+    - 25
+    london_cm20190820-23:
+    - 25
+    - 49
+    london_cm20190904-07:
+    - 49
+    - 73
+  test_tile:
+  - 200
+  - 400
+  - 200
+  - 400
+  tile_size: 200
+  val_hours: {}
+  z_range:
+  - 0
+  - 12
+  train_include_tiles:
+  - - 200
+    - 0
+experiment:
+  name: transfer1_1v1
+  output_dir: outputs/transfer_ratio
+  seed: 42
+logging:
+  log_every: 10
+loss:
+  high_weight: 0.0
+  lambda_anom: 1.0
+  lambda_grad: 1.0
+  lambda_nonneg: 0.1
+  lambda_pattern: 1.0
+  lambda_smooth: 0.0
+  lambda_spectral: 1.0
+  name: physics
+  pattern_min_std: 0.01
+model:
+  base_ch: 16
+  dropout: 0.1
+  in_ch: 18
+  n_down: 3
+  name: UNet3DFiLM
+  spatial_ch: 2
+  use_attention: true
+training:
+  early_stop_patience: 9999
+  epochs: 300
+  grad_clip: 1.0
+  lr: 0.0001
+  scheduler:
+    factor: 0.5
+    min_lr: 1.0e-06
+    name: plateau
+    patience: 10
+  weight_decay: 0.005

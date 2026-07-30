@@ -1,0 +1,6 @@
+torch>=2.0
+numpy
+netCDF4
+PyYAML
+matplotlib
+tensorboard

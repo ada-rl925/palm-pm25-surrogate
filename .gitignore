@@ -1,0 +1,26 @@
+# ─── Python ───
+__pycache__/
+*.py[cod]
+*.egg-info/
+.ipynb_checkpoints/
+
+# ─── Data (raw PALM LES NetCDF — not distributed) ───
+data/
+*.nc
+
+# ─── Model weights: ignore all, keep only the 3 published models ───
+*.pt
+!outputs/full_domain/checkpoints/best.pt
+!outputs/spatial_transfer1/checkpoints/best.pt
+!outputs/spatial_transfer2/checkpoints/best.pt
+
+# ─── Training scratch / logs not meant for publication ───
+outputs/_archive/
+outputs/**/tb/
+*.sh
+
+# ─── Cached OSM geojson (re-downloaded by src/draw_study_area_map.py) ───
+outputs/_geo_cache/
+
+# ─── OS ───
+.DS_Store

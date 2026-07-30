@@ -1,0 +1,70 @@
+experiment:
+  name: spatial_centre_hw0_nonneg
+  seed: 42
+  output_dir: outputs
+data:
+  roi: null
+  dataloader: v2
+  global_pm_norm: false
+  em_bg_norm: true
+  z_range:
+  - 0
+  - 12
+  t_hist: 1
+  batch_size: 8
+  num_workers: 6
+  val_hours: {}
+  tile_size: 200
+  train_exclude_tile:
+  - 0
+  - 200
+  - 400
+  - 600
+  test_tile:
+  - 0
+  - 200
+  - 400
+  - 600
+  test_hours:
+    london_cm20190720-23:
+    - 1
+    - 25
+    london_cm20190820-23:
+    - 25
+    - 49
+    london_cm20190904-07:
+    - 49
+    - 73
+model:
+  name: UNet3DFiLM
+  in_ch: 18
+  spatial_ch: 2
+  base_ch: 16
+  dropout: 0.1
+  use_attention: true
+  n_down: 3
+training:
+  epochs: 300
+  early_stop_patience: 9999
+  lr: 0.0001
+  weight_decay: 0.005
+  grad_clip: 1.0
+  scheduler:
+    name: plateau
+    patience: 10
+    factor: 0.5
+    min_lr: 1.0e-06
+loss:
+  name: physics
+  lambda_nonneg: 0.1
+  lambda_smooth: 0.0
+  lambda_anom: 1.0
+  lambda_grad: 1.0
+  lambda_pattern: 1.0
+  pattern_min_std: 0.01
+  high_weight: 0.0
+  lambda_spectral: 1.0
+logging:
+  log_every: 10
+_note: 'centre-tile (central London) transfer holdout, final recipe: hw=0, lambda_nonneg=0.1,
+  z0-11'

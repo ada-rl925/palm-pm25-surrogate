@@ -1,0 +1,1376 @@
+Device: cuda
+Building datasets...
+Temporal split:  train=264  val=0  test=72
+Fitting normalisation on 264 samples...
+  50/264
+  100/264
+  150/264
+  200/264
+  250/264
+Done.
+  emission  mean=5.6840  std=1.1291
+  pm25      per-level  mean[0]=2.3826e+00  mean[-1]=1.1283e+00
+Temporal split:  train=264  val=0  test=72
+Tile-holdout: train 1 tiles (exclude None); augment=False free_crop=False; test_tile=[0, 200, 400, 600]; train N=264 test N=72
+Model: UNet3D  base_ch=16  params: 403,458
+No val set — using train loss for scheduler and checkpoint selection.
+
+Training for 300 epochs...
+  batch 10/33  loss=2.5206
+  batch 20/33  loss=2.1064
+  batch 30/33  loss=1.6903
+Epoch   1/300  train=2.052e+00  rmse=4.3075  lr=1.0e-04  208s
+  -> best  monitor=2.052e+00
+  batch 10/33  loss=1.5976
+  batch 20/33  loss=1.6308
+  batch 30/33  loss=1.2361
+Epoch   2/300  train=1.681e+00  rmse=4.1108  lr=1.0e-04  208s
+  -> best  monitor=1.681e+00
+  batch 10/33  loss=1.7623
+  batch 20/33  loss=2.0475
+  batch 30/33  loss=1.5230
+Epoch   3/300  train=1.549e+00  rmse=3.9881  lr=1.0e-04  208s
+  -> best  monitor=1.549e+00
+  batch 10/33  loss=1.3981
+  batch 20/33  loss=1.6165
+  batch 30/33  loss=1.8161
+Epoch   4/300  train=1.441e+00  rmse=3.8501  lr=1.0e-04  209s
+  -> best  monitor=1.441e+00
+  batch 10/33  loss=1.2182
+  batch 20/33  loss=0.9842
+  batch 30/33  loss=1.5166
+Epoch   5/300  train=1.340e+00  rmse=3.7158  lr=1.0e-04  208s
+  -> best  monitor=1.340e+00
+  batch 10/33  loss=1.1739
+  batch 20/33  loss=1.5076
+  batch 30/33  loss=1.2034
+Epoch   6/300  train=1.216e+00  rmse=3.4868  lr=1.0e-04  210s
+  -> best  monitor=1.216e+00
+  batch 10/33  loss=1.6127
+  batch 20/33  loss=1.2657
+  batch 30/33  loss=1.1027
+Epoch   7/300  train=1.181e+00  rmse=3.4119  lr=1.0e-04  209s
+  -> best  monitor=1.181e+00
+  batch 10/33  loss=0.9848
+  batch 20/33  loss=1.4649
+  batch 30/33  loss=0.8704
+Epoch   8/300  train=1.089e+00  rmse=3.2561  lr=1.0e-04  209s
+  -> best  monitor=1.089e+00
+  batch 10/33  loss=0.9953
+  batch 20/33  loss=0.9438
+  batch 30/33  loss=0.9650
+Epoch   9/300  train=1.031e+00  rmse=3.1146  lr=1.0e-04  208s
+  -> best  monitor=1.031e+00
+  batch 10/33  loss=1.0602
+  batch 20/33  loss=0.9146
+  batch 30/33  loss=0.7970
+Epoch  10/300  train=9.827e-01  rmse=3.0316  lr=1.0e-04  208s
+  -> best  monitor=9.827e-01
+  batch 10/33  loss=0.8963
+  batch 20/33  loss=0.8777
+  batch 30/33  loss=0.9747
+Epoch  11/300  train=9.484e-01  rmse=2.8543  lr=1.0e-04  209s
+  -> best  monitor=9.484e-01
+  batch 10/33  loss=0.9623
+  batch 20/33  loss=0.9270
+  batch 30/33  loss=1.0485
+Epoch  12/300  train=9.075e-01  rmse=2.7850  lr=1.0e-04  208s
+  -> best  monitor=9.075e-01
+  batch 10/33  loss=0.6741
+  batch 20/33  loss=0.7671
+  batch 30/33  loss=0.9570
+Epoch  13/300  train=8.707e-01  rmse=2.6810  lr=1.0e-04  209s
+  -> best  monitor=8.707e-01
+  batch 10/33  loss=0.8205
+  batch 20/33  loss=0.7872
+  batch 30/33  loss=1.1117
+Epoch  14/300  train=8.460e-01  rmse=2.5843  lr=1.0e-04  208s
+  -> best  monitor=8.460e-01
+  batch 10/33  loss=0.7297
+  batch 20/33  loss=0.8191
+  batch 30/33  loss=0.8820
+Epoch  15/300  train=8.240e-01  rmse=2.5566  lr=1.0e-04  209s
+  -> best  monitor=8.240e-01
+  batch 10/33  loss=0.8139
+  batch 20/33  loss=0.6353
+  batch 30/33  loss=0.6731
+Epoch  16/300  train=8.050e-01  rmse=2.5331  lr=1.0e-04  208s
+  -> best  monitor=8.050e-01
+  batch 10/33  loss=0.7900
+  batch 20/33  loss=0.6965
+  batch 30/33  loss=0.7820
+Epoch  17/300  train=7.808e-01  rmse=2.4787  lr=1.0e-04  208s
+  -> best  monitor=7.808e-01
+  batch 10/33  loss=0.7075
+  batch 20/33  loss=0.7064
+  batch 30/33  loss=0.7979
+Epoch  18/300  train=7.746e-01  rmse=2.4402  lr=1.0e-04  210s
+  -> best  monitor=7.746e-01
+  batch 10/33  loss=0.6180
+  batch 20/33  loss=0.8140
+  batch 30/33  loss=0.6699
+Epoch  19/300  train=7.570e-01  rmse=2.3425  lr=1.0e-04  209s
+  -> best  monitor=7.570e-01
+  batch 10/33  loss=0.6248
+  batch 20/33  loss=0.7577
+  batch 30/33  loss=0.5809
+Epoch  20/300  train=7.418e-01  rmse=2.3492  lr=1.0e-04  210s
+  -> best  monitor=7.418e-01
+  batch 10/33  loss=0.7003
+  batch 20/33  loss=0.5742
+  batch 30/33  loss=0.6535
+Epoch  21/300  train=7.297e-01  rmse=2.2809  lr=1.0e-04  208s
+  -> best  monitor=7.297e-01
+  batch 10/33  loss=0.6473
+  batch 20/33  loss=0.7532
+  batch 30/33  loss=0.7352
+Epoch  22/300  train=7.161e-01  rmse=2.3443  lr=1.0e-04  210s
+  -> best  monitor=7.161e-01
+  batch 10/33  loss=0.7635
+  batch 20/33  loss=0.6183
+  batch 30/33  loss=0.6486
+Epoch  23/300  train=7.138e-01  rmse=2.3024  lr=1.0e-04  215s
+  -> best  monitor=7.138e-01
+  batch 10/33  loss=0.6807
+  batch 20/33  loss=0.6744
+  batch 30/33  loss=0.7319
+Epoch  24/300  train=7.010e-01  rmse=2.2398  lr=1.0e-04  215s
+  -> best  monitor=7.010e-01
+  batch 10/33  loss=0.5513
+  batch 20/33  loss=0.8510
+  batch 30/33  loss=0.6010
+Epoch  25/300  train=6.968e-01  rmse=2.3125  lr=1.0e-04  215s
+  -> best  monitor=6.968e-01
+  batch 10/33  loss=0.6562
+  batch 20/33  loss=0.6140
+  batch 30/33  loss=0.7070
+Epoch  26/300  train=6.895e-01  rmse=2.2143  lr=1.0e-04  214s
+  -> best  monitor=6.895e-01
+  batch 10/33  loss=0.5785
+  batch 20/33  loss=0.6564
+  batch 30/33  loss=0.7168
+Epoch  27/300  train=6.771e-01  rmse=2.1598  lr=1.0e-04  214s
+  -> best  monitor=6.771e-01
+  batch 10/33  loss=0.6779
+  batch 20/33  loss=0.6117
+  batch 30/33  loss=0.5819
+Epoch  28/300  train=6.720e-01  rmse=2.1650  lr=1.0e-04  215s
+  -> best  monitor=6.720e-01
+  batch 10/33  loss=0.6824
+  batch 20/33  loss=0.6235
+  batch 30/33  loss=0.6190
+Epoch  29/300  train=6.529e-01  rmse=2.0951  lr=1.0e-04  214s
+  -> best  monitor=6.529e-01
+  batch 10/33  loss=0.5677
+  batch 20/33  loss=0.4976
+  batch 30/33  loss=0.6294
+Epoch  30/300  train=6.545e-01  rmse=2.1629  lr=1.0e-04  213s
+  batch 10/33  loss=0.6702
+  batch 20/33  loss=0.4335
+  batch 30/33  loss=0.5887
+Epoch  31/300  train=6.478e-01  rmse=2.1480  lr=1.0e-04  211s
+  -> best  monitor=6.478e-01
+  batch 10/33  loss=0.5754
+  batch 20/33  loss=0.5804
+  batch 30/33  loss=0.5928
+Epoch  32/300  train=6.398e-01  rmse=2.1085  lr=1.0e-04  211s
+  -> best  monitor=6.398e-01
+  batch 10/33  loss=0.6310
+  batch 20/33  loss=0.7486
+  batch 30/33  loss=0.6995
+Epoch  33/300  train=6.353e-01  rmse=2.1492  lr=1.0e-04  210s
+  -> best  monitor=6.353e-01
+  batch 10/33  loss=0.6726
+  batch 20/33  loss=0.6034
+  batch 30/33  loss=0.7461
+Epoch  34/300  train=6.231e-01  rmse=2.0487  lr=1.0e-04  210s
+  -> best  monitor=6.231e-01
+  batch 10/33  loss=0.6926
+  batch 20/33  loss=0.5668
+  batch 30/33  loss=0.7467
+Epoch  35/300  train=6.243e-01  rmse=2.0264  lr=1.0e-04  211s
+  batch 10/33  loss=0.4593
+  batch 20/33  loss=0.5750
+  batch 30/33  loss=0.5928
+Epoch  36/300  train=6.124e-01  rmse=2.1190  lr=1.0e-04  210s
+  -> best  monitor=6.124e-01
+  batch 10/33  loss=0.6233
+  batch 20/33  loss=0.7115
+  batch 30/33  loss=0.5184
+Epoch  37/300  train=6.056e-01  rmse=1.9619  lr=1.0e-04  211s
+  -> best  monitor=6.056e-01
+  batch 10/33  loss=0.6032
+  batch 20/33  loss=0.9395
+  batch 30/33  loss=0.5422
+Epoch  38/300  train=6.022e-01  rmse=1.9580  lr=1.0e-04  211s
+  -> best  monitor=6.022e-01
+  batch 10/33  loss=0.6223
+  batch 20/33  loss=0.5750
+  batch 30/33  loss=0.5277
+Epoch  39/300  train=6.078e-01  rmse=2.0314  lr=1.0e-04  209s
+  batch 10/33  loss=0.4969
+  batch 20/33  loss=0.5307
+  batch 30/33  loss=0.6536
+Epoch  40/300  train=5.945e-01  rmse=2.0079  lr=1.0e-04  211s
+  -> best  monitor=5.945e-01
+  batch 10/33  loss=0.8067
+  batch 20/33  loss=0.5410
+  batch 30/33  loss=0.5284
+Epoch  41/300  train=5.997e-01  rmse=2.1466  lr=1.0e-04  212s
+  batch 10/33  loss=0.5661
+  batch 20/33  loss=0.5237
+  batch 30/33  loss=0.5571
+Epoch  42/300  train=5.903e-01  rmse=2.0407  lr=1.0e-04  213s
+  -> best  monitor=5.903e-01
+  batch 10/33  loss=0.5541
+  batch 20/33  loss=0.5655
+  batch 30/33  loss=0.5418
+Epoch  43/300  train=5.818e-01  rmse=1.9259  lr=1.0e-04  210s
+  -> best  monitor=5.818e-01
+  batch 10/33  loss=0.5966
+  batch 20/33  loss=0.4638
+  batch 30/33  loss=0.5868
+Epoch  44/300  train=5.791e-01  rmse=1.9404  lr=1.0e-04  211s
+  -> best  monitor=5.791e-01
+  batch 10/33  loss=0.4366
+  batch 20/33  loss=0.6319
+  batch 30/33  loss=0.5491
+Epoch  45/300  train=5.740e-01  rmse=1.9047  lr=1.0e-04  210s
+  -> best  monitor=5.740e-01
+  batch 10/33  loss=0.6240
+  batch 20/33  loss=0.5708
+  batch 30/33  loss=0.4895
+Epoch  46/300  train=5.740e-01  rmse=1.8779  lr=1.0e-04  210s
+  batch 10/33  loss=0.6433
+  batch 20/33  loss=0.5462
+  batch 30/33  loss=0.4777
+Epoch  47/300  train=5.691e-01  rmse=1.9387  lr=1.0e-04  209s
+  -> best  monitor=5.691e-01
+  batch 10/33  loss=0.5267
+  batch 20/33  loss=0.5694
+  batch 30/33  loss=0.6276
+Epoch  48/300  train=5.604e-01  rmse=1.9126  lr=1.0e-04  210s
+  -> best  monitor=5.604e-01
+  batch 10/33  loss=0.4896
+  batch 20/33  loss=0.5714
+  batch 30/33  loss=0.6215
+Epoch  49/300  train=5.583e-01  rmse=1.7827  lr=1.0e-04  210s
+  -> best  monitor=5.583e-01
+  batch 10/33  loss=0.5210
+  batch 20/33  loss=0.6481
+  batch 30/33  loss=0.5350
+Epoch  50/300  train=5.606e-01  rmse=1.8094  lr=1.0e-04  211s
+  batch 10/33  loss=0.3966
+  batch 20/33  loss=0.4946
+  batch 30/33  loss=0.5453
+Epoch  51/300  train=5.553e-01  rmse=1.8114  lr=1.0e-04  208s
+  -> best  monitor=5.553e-01
+  batch 10/33  loss=0.6554
+  batch 20/33  loss=0.5491
+  batch 30/33  loss=0.4683
+Epoch  52/300  train=5.496e-01  rmse=1.7787  lr=1.0e-04  211s
+  -> best  monitor=5.496e-01
+  batch 10/33  loss=0.4823
+  batch 20/33  loss=0.5311
+  batch 30/33  loss=0.6098
+Epoch  53/300  train=5.520e-01  rmse=1.8892  lr=1.0e-04  209s
+  batch 10/33  loss=0.4866
+  batch 20/33  loss=0.5183
+  batch 30/33  loss=0.4725
+Epoch  54/300  train=5.406e-01  rmse=1.6953  lr=1.0e-04  212s
+  -> best  monitor=5.406e-01
+  batch 10/33  loss=0.5910
+  batch 20/33  loss=0.4860
+  batch 30/33  loss=0.6232
+Epoch  55/300  train=5.440e-01  rmse=1.7681  lr=1.0e-04  212s
+  batch 10/33  loss=0.6040
+  batch 20/33  loss=0.4444
+  batch 30/33  loss=0.4263
+Epoch  56/300  train=5.383e-01  rmse=1.7482  lr=1.0e-04  209s
+  -> best  monitor=5.383e-01
+  batch 10/33  loss=0.5713
+  batch 20/33  loss=0.5262
+  batch 30/33  loss=0.5335
+Epoch  57/300  train=5.379e-01  rmse=1.7311  lr=1.0e-04  211s
+  -> best  monitor=5.379e-01
+  batch 10/33  loss=0.5729
+  batch 20/33  loss=0.4523
+  batch 30/33  loss=0.6383
+Epoch  58/300  train=5.442e-01  rmse=1.7515  lr=1.0e-04  211s
+  batch 10/33  loss=0.4517
+  batch 20/33  loss=0.5415
+  batch 30/33  loss=0.4484
+Epoch  59/300  train=5.272e-01  rmse=1.6410  lr=1.0e-04  211s
+  -> best  monitor=5.272e-01
+  batch 10/33  loss=0.5949
+  batch 20/33  loss=0.4575
+  batch 30/33  loss=0.4988
+Epoch  60/300  train=5.244e-01  rmse=1.8032  lr=1.0e-04  210s
+  -> best  monitor=5.244e-01
+  batch 10/33  loss=0.5482
+  batch 20/33  loss=0.4841
+  batch 30/33  loss=0.5963
+Epoch  61/300  train=5.202e-01  rmse=1.7583  lr=1.0e-04  210s
+  -> best  monitor=5.202e-01
+  batch 10/33  loss=0.4801
+  batch 20/33  loss=0.5623
+  batch 30/33  loss=0.6234
+Epoch  62/300  train=5.297e-01  rmse=1.7824  lr=1.0e-04  211s
+  batch 10/33  loss=0.4875
+  batch 20/33  loss=0.5475
+  batch 30/33  loss=0.4358
+Epoch  63/300  train=5.168e-01  rmse=1.6652  lr=1.0e-04  212s
+  -> best  monitor=5.168e-01
+  batch 10/33  loss=0.3969
+  batch 20/33  loss=0.4502
+  batch 30/33  loss=0.4383
+Epoch  64/300  train=5.171e-01  rmse=1.6584  lr=1.0e-04  209s
+  batch 10/33  loss=0.5419
+  batch 20/33  loss=0.5100
+  batch 30/33  loss=0.5465
+Epoch  65/300  train=5.137e-01  rmse=1.5955  lr=1.0e-04  211s
+  -> best  monitor=5.137e-01
+  batch 10/33  loss=0.4407
+  batch 20/33  loss=0.5286
+  batch 30/33  loss=0.5017
+Epoch  66/300  train=5.106e-01  rmse=1.7458  lr=1.0e-04  211s
+  -> best  monitor=5.106e-01
+  batch 10/33  loss=0.5975
+  batch 20/33  loss=0.4599
+  batch 30/33  loss=0.4805
+Epoch  67/300  train=5.136e-01  rmse=1.7405  lr=1.0e-04  211s
+  batch 10/33  loss=0.5648
+  batch 20/33  loss=0.4779
+  batch 30/33  loss=0.4762
+Epoch  68/300  train=5.119e-01  rmse=1.6618  lr=1.0e-04  209s
+  batch 10/33  loss=0.5526
+  batch 20/33  loss=0.4643
+  batch 30/33  loss=0.5085
+Epoch  69/300  train=5.082e-01  rmse=1.6378  lr=1.0e-04  210s
+  -> best  monitor=5.082e-01
+  batch 10/33  loss=0.4906
+  batch 20/33  loss=0.5001
+  batch 30/33  loss=0.4512
+Epoch  70/300  train=4.957e-01  rmse=1.5863  lr=1.0e-04  211s
+  -> best  monitor=4.957e-01
+  batch 10/33  loss=0.4804
+  batch 20/33  loss=0.4649
+  batch 30/33  loss=0.4702
+Epoch  71/300  train=4.990e-01  rmse=1.5913  lr=1.0e-04  210s
+  batch 10/33  loss=0.5186
+  batch 20/33  loss=0.5702
+  batch 30/33  loss=0.4184
+Epoch  72/300  train=4.948e-01  rmse=1.4749  lr=1.0e-04  215s
+  -> best  monitor=4.948e-01
+  batch 10/33  loss=0.5025
+  batch 20/33  loss=0.5433
+  batch 30/33  loss=0.4258
+Epoch  73/300  train=4.913e-01  rmse=1.5333  lr=1.0e-04  212s
+  -> best  monitor=4.913e-01
+  batch 10/33  loss=0.4843
+  batch 20/33  loss=0.4713
+  batch 30/33  loss=0.4667
+Epoch  74/300  train=4.923e-01  rmse=1.6719  lr=1.0e-04  211s
+  batch 10/33  loss=0.4457
+  batch 20/33  loss=0.4437
+  batch 30/33  loss=0.5098
+Epoch  75/300  train=4.865e-01  rmse=1.5262  lr=1.0e-04  212s
+  -> best  monitor=4.865e-01
+  batch 10/33  loss=0.4270
+  batch 20/33  loss=0.4936
+  batch 30/33  loss=0.4513
+Epoch  76/300  train=4.922e-01  rmse=1.5538  lr=1.0e-04  212s
+  batch 10/33  loss=0.4129
+  batch 20/33  loss=0.4833
+  batch 30/33  loss=0.4988
+Epoch  77/300  train=4.895e-01  rmse=1.5098  lr=1.0e-04  210s
+  batch 10/33  loss=0.4487
+  batch 20/33  loss=0.5983
+  batch 30/33  loss=0.4621
+Epoch  78/300  train=4.818e-01  rmse=1.4019  lr=1.0e-04  210s
+  -> best  monitor=4.818e-01
+  batch 10/33  loss=0.4268
+  batch 20/33  loss=0.4676
+  batch 30/33  loss=0.4139
+Epoch  79/300  train=4.837e-01  rmse=1.5304  lr=1.0e-04  211s
+  batch 10/33  loss=0.4497
+  batch 20/33  loss=0.4174
+  batch 30/33  loss=0.5499
+Epoch  80/300  train=4.845e-01  rmse=1.4662  lr=1.0e-04  214s
+  batch 10/33  loss=0.5147
+  batch 20/33  loss=0.4472
+  batch 30/33  loss=0.4691
+Epoch  81/300  train=4.729e-01  rmse=1.5033  lr=1.0e-04  210s
+  -> best  monitor=4.729e-01
+  batch 10/33  loss=0.5825
+  batch 20/33  loss=0.4200
+  batch 30/33  loss=0.4933
+Epoch  82/300  train=4.770e-01  rmse=1.4739  lr=1.0e-04  213s
+  batch 10/33  loss=0.5141
+  batch 20/33  loss=0.4570
+  batch 30/33  loss=0.4562
+Epoch  83/300  train=4.881e-01  rmse=1.6705  lr=1.0e-04  211s
+  batch 10/33  loss=0.5061
+  batch 20/33  loss=0.3943
+  batch 30/33  loss=0.4913
+Epoch  84/300  train=4.814e-01  rmse=1.5480  lr=1.0e-04  210s
+  batch 10/33  loss=0.3980
+  batch 20/33  loss=0.7342
+  batch 30/33  loss=0.4702
+Epoch  85/300  train=4.748e-01  rmse=1.5383  lr=1.0e-04  212s
+  batch 10/33  loss=0.4709
+  batch 20/33  loss=0.4324
+  batch 30/33  loss=0.4501
+Epoch  86/300  train=4.703e-01  rmse=1.5371  lr=1.0e-04  210s
+  -> best  monitor=4.703e-01
+  batch 10/33  loss=0.4169
+  batch 20/33  loss=0.4445
+  batch 30/33  loss=0.4947
+Epoch  87/300  train=4.667e-01  rmse=1.4103  lr=1.0e-04  212s
+  -> best  monitor=4.667e-01
+  batch 10/33  loss=0.4310
+  batch 20/33  loss=0.5720
+  batch 30/33  loss=0.3820
+Epoch  88/300  train=4.668e-01  rmse=1.4648  lr=1.0e-04  212s
+  batch 10/33  loss=0.3991
+  batch 20/33  loss=0.4778
+  batch 30/33  loss=0.4236
+Epoch  89/300  train=4.652e-01  rmse=1.5573  lr=1.0e-04  210s
+  -> best  monitor=4.652e-01
+  batch 10/33  loss=0.4623
+  batch 20/33  loss=0.4887
+  batch 30/33  loss=0.4025
+Epoch  90/300  train=4.628e-01  rmse=1.5223  lr=1.0e-04  210s
+  -> best  monitor=4.628e-01
+  batch 10/33  loss=0.4666
+  batch 20/33  loss=0.4992
+  batch 30/33  loss=0.4347
+Epoch  91/300  train=4.655e-01  rmse=1.3786  lr=1.0e-04  211s
+  batch 10/33  loss=0.4394
+  batch 20/33  loss=0.4307
+  batch 30/33  loss=0.5502
+Epoch  92/300  train=4.595e-01  rmse=1.5417  lr=1.0e-04  211s
+  -> best  monitor=4.595e-01
+  batch 10/33  loss=0.4411
+  batch 20/33  loss=0.3983
+  batch 30/33  loss=0.5070
+Epoch  93/300  train=4.549e-01  rmse=1.3345  lr=1.0e-04  211s
+  -> best  monitor=4.549e-01
+  batch 10/33  loss=0.4321
+  batch 20/33  loss=0.4891
+  batch 30/33  loss=0.4528
+Epoch  94/300  train=4.654e-01  rmse=1.4474  lr=1.0e-04  210s
+  batch 10/33  loss=0.4126
+  batch 20/33  loss=0.3608
+  batch 30/33  loss=0.4239
+Epoch  95/300  train=4.600e-01  rmse=1.3839  lr=1.0e-04  212s
+  batch 10/33  loss=0.5349
+  batch 20/33  loss=0.5677
+  batch 30/33  loss=0.4331
+Epoch  96/300  train=4.506e-01  rmse=1.2866  lr=1.0e-04  213s
+  -> best  monitor=4.506e-01
+  batch 10/33  loss=0.4944
+  batch 20/33  loss=0.4456
+  batch 30/33  loss=0.4588
+Epoch  97/300  train=4.598e-01  rmse=1.5940  lr=1.0e-04  212s
+  batch 10/33  loss=0.5925
+  batch 20/33  loss=0.4185
+  batch 30/33  loss=0.4675
+Epoch  98/300  train=4.533e-01  rmse=1.2989  lr=1.0e-04  214s
+  batch 10/33  loss=0.4329
+  batch 20/33  loss=0.4410
+  batch 30/33  loss=0.5419
+Epoch  99/300  train=4.505e-01  rmse=1.2915  lr=1.0e-04  212s
+  -> best  monitor=4.505e-01
+  batch 10/33  loss=0.4400
+  batch 20/33  loss=0.4179
+  batch 30/33  loss=0.4431
+Epoch 100/300  train=4.463e-01  rmse=1.3809  lr=1.0e-04  215s
+  -> best  monitor=4.463e-01
+  batch 10/33  loss=0.4410
+  batch 20/33  loss=0.5043
+  batch 30/33  loss=0.4436
+Epoch 101/300  train=4.488e-01  rmse=1.3633  lr=1.0e-04  212s
+  batch 10/33  loss=0.5274
+  batch 20/33  loss=0.5272
+  batch 30/33  loss=0.4769
+Epoch 102/300  train=4.558e-01  rmse=1.3415  lr=1.0e-04  215s
+  batch 10/33  loss=0.3944
+  batch 20/33  loss=0.4669
+  batch 30/33  loss=0.3844
+Epoch 103/300  train=4.434e-01  rmse=1.3824  lr=1.0e-04  214s
+  -> best  monitor=4.434e-01
+  batch 10/33  loss=0.3797
+  batch 20/33  loss=0.3795
+  batch 30/33  loss=0.5758
+Epoch 104/300  train=4.515e-01  rmse=1.5438  lr=1.0e-04  216s
+  batch 10/33  loss=0.4245
+  batch 20/33  loss=0.3954
+  batch 30/33  loss=0.4198
+Epoch 105/300  train=4.440e-01  rmse=1.3601  lr=1.0e-04  212s
+  batch 10/33  loss=0.4270
+  batch 20/33  loss=0.4565
+  batch 30/33  loss=0.4177
+Epoch 106/300  train=4.416e-01  rmse=1.4456  lr=1.0e-04  215s
+  -> best  monitor=4.416e-01
+  batch 10/33  loss=0.4791
+  batch 20/33  loss=0.3977
+  batch 30/33  loss=0.3868
+Epoch 107/300  train=4.449e-01  rmse=1.3216  lr=1.0e-04  202s
+  batch 10/33  loss=0.5722
+  batch 20/33  loss=0.4118
+  batch 30/33  loss=0.4076
+Epoch 108/300  train=4.408e-01  rmse=1.3394  lr=1.0e-04  191s
+  -> best  monitor=4.408e-01
+  batch 10/33  loss=0.4259
+  batch 20/33  loss=0.5381
+  batch 30/33  loss=0.4335
+Epoch 109/300  train=4.431e-01  rmse=1.3398  lr=1.0e-04  190s
+  batch 10/33  loss=0.4231
+  batch 20/33  loss=0.4109
+  batch 30/33  loss=0.4017
+Epoch 110/300  train=4.348e-01  rmse=1.2927  lr=1.0e-04  190s
+  -> best  monitor=4.348e-01
+  batch 10/33  loss=0.4191
+  batch 20/33  loss=0.4578
+  batch 30/33  loss=0.4415
+Epoch 111/300  train=4.395e-01  rmse=1.2842  lr=1.0e-04  190s
+  batch 10/33  loss=0.5148
+  batch 20/33  loss=0.4080
+  batch 30/33  loss=0.3617
+Epoch 112/300  train=4.402e-01  rmse=1.3386  lr=1.0e-04  190s
+  batch 10/33  loss=0.4682
+  batch 20/33  loss=0.4228
+  batch 30/33  loss=0.5044
+Epoch 113/300  train=4.388e-01  rmse=1.4703  lr=1.0e-04  190s
+  batch 10/33  loss=0.4185
+  batch 20/33  loss=0.3796
+  batch 30/33  loss=0.4049
+Epoch 114/300  train=4.312e-01  rmse=1.2687  lr=1.0e-04  190s
+  -> best  monitor=4.312e-01
+  batch 10/33  loss=0.4101
+  batch 20/33  loss=0.4085
+  batch 30/33  loss=0.4053
+Epoch 115/300  train=4.349e-01  rmse=1.3867  lr=1.0e-04  190s
+  batch 10/33  loss=0.4196
+  batch 20/33  loss=0.6159
+  batch 30/33  loss=0.3914
+Epoch 116/300  train=4.327e-01  rmse=1.3024  lr=1.0e-04  190s
+  batch 10/33  loss=0.4412
+  batch 20/33  loss=0.3581
+  batch 30/33  loss=0.5379
+Epoch 117/300  train=4.307e-01  rmse=1.3336  lr=1.0e-04  191s
+  -> best  monitor=4.307e-01
+  batch 10/33  loss=0.5025
+  batch 20/33  loss=0.4112
+  batch 30/33  loss=0.3636
+Epoch 118/300  train=4.311e-01  rmse=1.3930  lr=1.0e-04  191s
+  batch 10/33  loss=0.3962
+  batch 20/33  loss=0.3679
+  batch 30/33  loss=0.4208
+Epoch 119/300  train=4.269e-01  rmse=1.3494  lr=1.0e-04  190s
+  -> best  monitor=4.269e-01
+  batch 10/33  loss=0.4666
+  batch 20/33  loss=0.5279
+  batch 30/33  loss=0.4717
+Epoch 120/300  train=4.265e-01  rmse=1.2877  lr=1.0e-04  190s
+  -> best  monitor=4.265e-01
+  batch 10/33  loss=0.4398
+  batch 20/33  loss=0.4559
+  batch 30/33  loss=0.3909
+Epoch 121/300  train=4.260e-01  rmse=1.2270  lr=1.0e-04  190s
+  -> best  monitor=4.260e-01
+  batch 10/33  loss=0.4332
+  batch 20/33  loss=0.5103
+  batch 30/33  loss=0.5224
+Epoch 122/300  train=4.249e-01  rmse=1.2011  lr=1.0e-04  190s
+  -> best  monitor=4.249e-01
+  batch 10/33  loss=0.3501
+  batch 20/33  loss=0.3351
+  batch 30/33  loss=0.3703
+Epoch 123/300  train=4.267e-01  rmse=1.2644  lr=1.0e-04  190s
+  batch 10/33  loss=0.4496
+  batch 20/33  loss=0.4398
+  batch 30/33  loss=0.3829
+Epoch 124/300  train=4.239e-01  rmse=1.2734  lr=1.0e-04  190s
+  -> best  monitor=4.239e-01
+  batch 10/33  loss=0.3874
+  batch 20/33  loss=0.5396
+  batch 30/33  loss=0.3730
+Epoch 125/300  train=4.242e-01  rmse=1.3250  lr=1.0e-04  191s
+  batch 10/33  loss=0.4097
+  batch 20/33  loss=0.4448
+  batch 30/33  loss=0.4311
+Epoch 126/300  train=4.258e-01  rmse=1.3474  lr=1.0e-04  191s
+  batch 10/33  loss=0.4047
+  batch 20/33  loss=0.4089
+  batch 30/33  loss=0.5571
+Epoch 127/300  train=4.241e-01  rmse=1.3432  lr=1.0e-04  190s
+  batch 10/33  loss=0.4201
+  batch 20/33  loss=0.3642
+  batch 30/33  loss=0.4489
+Epoch 128/300  train=4.210e-01  rmse=1.2967  lr=1.0e-04  190s
+  -> best  monitor=4.210e-01
+  batch 10/33  loss=0.4667
+  batch 20/33  loss=0.4202
+  batch 30/33  loss=0.4183
+Epoch 129/300  train=4.192e-01  rmse=1.2324  lr=1.0e-04  190s
+  -> best  monitor=4.192e-01
+  batch 10/33  loss=0.3649
+  batch 20/33  loss=0.3903
+  batch 30/33  loss=0.4821
+Epoch 130/300  train=4.218e-01  rmse=1.3475  lr=1.0e-04  191s
+  batch 10/33  loss=0.3904
+  batch 20/33  loss=0.4245
+  batch 30/33  loss=0.4246
+Epoch 131/300  train=4.211e-01  rmse=1.2422  lr=1.0e-04  189s
+  batch 10/33  loss=0.4240
+  batch 20/33  loss=0.3663
+  batch 30/33  loss=0.5215
+Epoch 132/300  train=4.217e-01  rmse=1.1761  lr=1.0e-04  189s
+  batch 10/33  loss=0.4029
+  batch 20/33  loss=0.3737
+  batch 30/33  loss=0.4172
+Epoch 133/300  train=4.197e-01  rmse=1.3355  lr=1.0e-04  190s
+  batch 10/33  loss=0.4067
+  batch 20/33  loss=0.4070
+  batch 30/33  loss=0.3816
+Epoch 134/300  train=4.213e-01  rmse=1.4299  lr=1.0e-04  189s
+  batch 10/33  loss=0.5336
+  batch 20/33  loss=0.4084
+  batch 30/33  loss=0.4111
+Epoch 135/300  train=4.176e-01  rmse=1.3731  lr=1.0e-04  189s
+  -> best  monitor=4.176e-01
+  batch 10/33  loss=0.3530
+  batch 20/33  loss=0.4299
+  batch 30/33  loss=0.3783
+Epoch 136/300  train=4.172e-01  rmse=1.2746  lr=1.0e-04  190s
+  -> best  monitor=4.172e-01
+  batch 10/33  loss=0.4050
+  batch 20/33  loss=0.3943
+  batch 30/33  loss=0.4176
+Epoch 137/300  train=4.143e-01  rmse=1.1986  lr=1.0e-04  190s
+  -> best  monitor=4.143e-01
+  batch 10/33  loss=0.4158
+  batch 20/33  loss=0.3661
+  batch 30/33  loss=0.4228
+Epoch 138/300  train=4.148e-01  rmse=1.1086  lr=1.0e-04  190s
+  batch 10/33  loss=0.4385
+  batch 20/33  loss=0.4365
+  batch 30/33  loss=0.3518
+Epoch 139/300  train=4.134e-01  rmse=1.2222  lr=1.0e-04  189s
+  -> best  monitor=4.134e-01
+  batch 10/33  loss=0.4241
+  batch 20/33  loss=0.4142
+  batch 30/33  loss=0.5278
+Epoch 140/300  train=4.165e-01  rmse=1.2296  lr=1.0e-04  190s
+  batch 10/33  loss=0.4003
+  batch 20/33  loss=0.3589
+  batch 30/33  loss=0.3832
+Epoch 141/300  train=4.109e-01  rmse=1.2027  lr=1.0e-04  190s
+  -> best  monitor=4.109e-01
+  batch 10/33  loss=0.4301
+  batch 20/33  loss=0.4365
+  batch 30/33  loss=0.4176
+Epoch 142/300  train=4.105e-01  rmse=1.1796  lr=1.0e-04  190s
+  -> best  monitor=4.105e-01
+  batch 10/33  loss=0.4426
+  batch 20/33  loss=0.3548
+  batch 30/33  loss=0.4707
+Epoch 143/300  train=4.156e-01  rmse=1.3025  lr=1.0e-04  189s
+  batch 10/33  loss=0.4834
+  batch 20/33  loss=0.3899
+  batch 30/33  loss=0.3902
+Epoch 144/300  train=4.050e-01  rmse=1.1149  lr=1.0e-04  190s
+  -> best  monitor=4.050e-01
+  batch 10/33  loss=0.3919
+  batch 20/33  loss=0.4121
+  batch 30/33  loss=0.4237
+Epoch 145/300  train=4.083e-01  rmse=1.2065  lr=1.0e-04  190s
+  batch 10/33  loss=0.3862
+  batch 20/33  loss=0.4028
+  batch 30/33  loss=0.3850
+Epoch 146/300  train=4.063e-01  rmse=1.2318  lr=1.0e-04  190s
+  batch 10/33  loss=0.3899
+  batch 20/33  loss=0.4455
+  batch 30/33  loss=0.3453
+Epoch 147/300  train=4.092e-01  rmse=1.2269  lr=1.0e-04  189s
+  batch 10/33  loss=0.4352
+  batch 20/33  loss=0.4292
+  batch 30/33  loss=0.3822
+Epoch 148/300  train=4.073e-01  rmse=1.2401  lr=1.0e-04  189s
+  batch 10/33  loss=0.4464
+  batch 20/33  loss=0.4345
+  batch 30/33  loss=0.4238
+Epoch 149/300  train=4.062e-01  rmse=1.2056  lr=1.0e-04  188s
+  batch 10/33  loss=0.3850
+  batch 20/33  loss=0.5299
+  batch 30/33  loss=0.4336
+Epoch 150/300  train=4.081e-01  rmse=1.3156  lr=1.0e-04  190s
+  batch 10/33  loss=0.4115
+  batch 20/33  loss=0.4293
+  batch 30/33  loss=0.4164
+Epoch 151/300  train=4.033e-01  rmse=1.0707  lr=1.0e-04  189s
+  -> best  monitor=4.033e-01
+  batch 10/33  loss=0.4001
+  batch 20/33  loss=0.3954
+  batch 30/33  loss=0.3819
+Epoch 152/300  train=4.038e-01  rmse=1.1125  lr=1.0e-04  190s
+  batch 10/33  loss=0.4152
+  batch 20/33  loss=0.3941
+  batch 30/33  loss=0.3884
+Epoch 153/300  train=4.070e-01  rmse=1.3058  lr=1.0e-04  190s
+  batch 10/33  loss=0.3971
+  batch 20/33  loss=0.3903
+  batch 30/33  loss=0.3382
+Epoch 154/300  train=3.972e-01  rmse=1.1254  lr=1.0e-04  190s
+  -> best  monitor=3.972e-01
+  batch 10/33  loss=0.3973
+  batch 20/33  loss=0.3441
+  batch 30/33  loss=0.4550
+Epoch 155/300  train=4.018e-01  rmse=1.1378  lr=1.0e-04  190s
+  batch 10/33  loss=0.4174
+  batch 20/33  loss=0.3594
+  batch 30/33  loss=0.4293
+Epoch 156/300  train=4.019e-01  rmse=1.1137  lr=1.0e-04  190s
+  batch 10/33  loss=0.3472
+  batch 20/33  loss=0.4202
+  batch 30/33  loss=0.4691
+Epoch 157/300  train=4.018e-01  rmse=1.2268  lr=1.0e-04  190s
+  batch 10/33  loss=0.3299
+  batch 20/33  loss=0.4296
+  batch 30/33  loss=0.3803
+Epoch 158/300  train=3.976e-01  rmse=1.1003  lr=1.0e-04  189s
+  batch 10/33  loss=0.4049
+  batch 20/33  loss=0.4047
+  batch 30/33  loss=0.6018
+Epoch 159/300  train=4.014e-01  rmse=1.4098  lr=1.0e-04  190s
+  batch 10/33  loss=0.4107
+  batch 20/33  loss=0.4202
+  batch 30/33  loss=0.3307
+Epoch 160/300  train=3.972e-01  rmse=1.1946  lr=1.0e-04  189s
+  batch 10/33  loss=0.3900
+  batch 20/33  loss=0.4279
+  batch 30/33  loss=0.4005
+Epoch 161/300  train=3.922e-01  rmse=1.1780  lr=1.0e-04  190s
+  -> best  monitor=3.922e-01
+  batch 10/33  loss=0.4375
+  batch 20/33  loss=0.3924
+  batch 30/33  loss=0.4120
+Epoch 162/300  train=3.964e-01  rmse=1.1386  lr=1.0e-04  190s
+  batch 10/33  loss=0.3985
+  batch 20/33  loss=0.4483
+  batch 30/33  loss=0.3708
+Epoch 163/300  train=3.981e-01  rmse=1.2449  lr=1.0e-04  189s
+  batch 10/33  loss=0.3942
+  batch 20/33  loss=0.3306
+  batch 30/33  loss=0.3915
+Epoch 164/300  train=3.948e-01  rmse=1.0944  lr=1.0e-04  190s
+  batch 10/33  loss=0.3757
+  batch 20/33  loss=0.3817
+  batch 30/33  loss=0.4112
+Epoch 165/300  train=3.976e-01  rmse=1.0908  lr=1.0e-04  189s
+  batch 10/33  loss=0.4136
+  batch 20/33  loss=0.3326
+  batch 30/33  loss=0.3675
+Epoch 166/300  train=3.961e-01  rmse=1.3085  lr=1.0e-04  190s
+  batch 10/33  loss=0.4380
+  batch 20/33  loss=0.3875
+  batch 30/33  loss=0.4369
+Epoch 167/300  train=4.047e-01  rmse=1.2513  lr=1.0e-04  190s
+  batch 10/33  loss=0.3567
+  batch 20/33  loss=0.4392
+  batch 30/33  loss=0.5017
+Epoch 168/300  train=3.910e-01  rmse=1.1291  lr=1.0e-04  189s
+  -> best  monitor=3.910e-01
+  batch 10/33  loss=0.4073
+  batch 20/33  loss=0.3495
+  batch 30/33  loss=0.3574
+Epoch 169/300  train=3.938e-01  rmse=1.1972  lr=1.0e-04  190s
+  batch 10/33  loss=0.3515
+  batch 20/33  loss=0.3864
+  batch 30/33  loss=0.3974
+Epoch 170/300  train=3.935e-01  rmse=1.2014  lr=1.0e-04  189s
+  batch 10/33  loss=0.3713
+  batch 20/33  loss=0.3939
+  batch 30/33  loss=0.4237
+Epoch 171/300  train=3.945e-01  rmse=1.3399  lr=1.0e-04  190s
+  batch 10/33  loss=0.3718
+  batch 20/33  loss=0.3668
+  batch 30/33  loss=0.3373
+Epoch 172/300  train=3.943e-01  rmse=1.0747  lr=1.0e-04  190s
+  batch 10/33  loss=0.4202
+  batch 20/33  loss=0.3889
+  batch 30/33  loss=0.3816
+Epoch 173/300  train=3.930e-01  rmse=1.1177  lr=1.0e-04  189s
+  batch 10/33  loss=0.3470
+  batch 20/33  loss=0.3743
+  batch 30/33  loss=0.4179
+Epoch 174/300  train=3.915e-01  rmse=1.1258  lr=1.0e-04  190s
+  batch 10/33  loss=0.3595
+  batch 20/33  loss=0.4296
+  batch 30/33  loss=0.4079
+Epoch 175/300  train=3.883e-01  rmse=1.0030  lr=1.0e-04  190s
+  -> best  monitor=3.883e-01
+  batch 10/33  loss=0.3914
+  batch 20/33  loss=0.3691
+  batch 30/33  loss=0.3492
+Epoch 176/300  train=3.839e-01  rmse=1.0674  lr=1.0e-04  190s
+  -> best  monitor=3.839e-01
+  batch 10/33  loss=0.3830
+  batch 20/33  loss=0.4574
+  batch 30/33  loss=0.3517
+Epoch 177/300  train=3.853e-01  rmse=1.0144  lr=1.0e-04  191s
+  batch 10/33  loss=0.3673
+  batch 20/33  loss=0.3889
+  batch 30/33  loss=0.3356
+Epoch 178/300  train=3.907e-01  rmse=1.0915  lr=1.0e-04  191s
+  batch 10/33  loss=0.3771
+  batch 20/33  loss=0.3919
+  batch 30/33  loss=0.3764
+Epoch 179/300  train=3.874e-01  rmse=1.0311  lr=1.0e-04  189s
+  batch 10/33  loss=0.4598
+  batch 20/33  loss=0.4003
+  batch 30/33  loss=0.3502
+Epoch 180/300  train=3.876e-01  rmse=1.0784  lr=1.0e-04  190s
+  batch 10/33  loss=0.3288
+  batch 20/33  loss=0.4184
+  batch 30/33  loss=0.4494
+Epoch 181/300  train=3.857e-01  rmse=1.0794  lr=1.0e-04  190s
+  batch 10/33  loss=0.3330
+  batch 20/33  loss=0.3843
+  batch 30/33  loss=0.3466
+Epoch 182/300  train=3.855e-01  rmse=1.1596  lr=1.0e-04  190s
+  batch 10/33  loss=0.4002
+  batch 20/33  loss=0.3738
+  batch 30/33  loss=0.3647
+Epoch 183/300  train=3.861e-01  rmse=1.0675  lr=1.0e-04  189s
+  batch 10/33  loss=0.4188
+  batch 20/33  loss=0.3824
+  batch 30/33  loss=0.4031
+Epoch 184/300  train=3.826e-01  rmse=1.1528  lr=1.0e-04  189s
+  -> best  monitor=3.826e-01
+  batch 10/33  loss=0.3694
+  batch 20/33  loss=0.3485
+  batch 30/33  loss=0.4755
+Epoch 185/300  train=3.826e-01  rmse=1.0168  lr=1.0e-04  190s
+  batch 10/33  loss=0.3787
+  batch 20/33  loss=0.3949
+  batch 30/33  loss=0.3862
+Epoch 186/300  train=3.859e-01  rmse=1.0540  lr=1.0e-04  190s
+  batch 10/33  loss=0.3352
+  batch 20/33  loss=0.4483
+  batch 30/33  loss=0.3346
+Epoch 187/300  train=3.840e-01  rmse=1.1359  lr=1.0e-04  190s
+  batch 10/33  loss=0.3276
+  batch 20/33  loss=0.3698
+  batch 30/33  loss=0.3948
+Epoch 188/300  train=3.818e-01  rmse=1.1459  lr=1.0e-04  190s
+  -> best  monitor=3.818e-01
+  batch 10/33  loss=0.3633
+  batch 20/33  loss=0.3624
+  batch 30/33  loss=0.3860
+Epoch 189/300  train=3.831e-01  rmse=1.0999  lr=1.0e-04  190s
+  batch 10/33  loss=0.4281
+  batch 20/33  loss=0.3415
+  batch 30/33  loss=0.4340
+Epoch 190/300  train=3.857e-01  rmse=1.0886  lr=1.0e-04  190s
+  batch 10/33  loss=0.4081
+  batch 20/33  loss=0.3159
+  batch 30/33  loss=0.4601
+Epoch 191/300  train=3.800e-01  rmse=1.0563  lr=1.0e-04  190s
+  -> best  monitor=3.800e-01
+  batch 10/33  loss=0.3735
+  batch 20/33  loss=0.3293
+  batch 30/33  loss=0.4358
+Epoch 192/300  train=3.797e-01  rmse=0.9923  lr=1.0e-04  190s
+  -> best  monitor=3.797e-01
+  batch 10/33  loss=0.3396
+  batch 20/33  loss=0.3529
+  batch 30/33  loss=0.3579
+Epoch 193/300  train=3.766e-01  rmse=1.1504  lr=1.0e-04  190s
+  -> best  monitor=3.766e-01
+  batch 10/33  loss=0.3740
+  batch 20/33  loss=0.3137
+  batch 30/33  loss=0.3980
+Epoch 194/300  train=3.812e-01  rmse=1.0910  lr=1.0e-04  190s
+  batch 10/33  loss=0.4072
+  batch 20/33  loss=0.3986
+  batch 30/33  loss=0.3243
+Epoch 195/300  train=3.796e-01  rmse=1.0076  lr=1.0e-04  190s
+  batch 10/33  loss=0.3733
+  batch 20/33  loss=0.3703
+  batch 30/33  loss=0.3159
+Epoch 196/300  train=3.786e-01  rmse=1.0396  lr=1.0e-04  190s
+  batch 10/33  loss=0.3124
+  batch 20/33  loss=0.3987
+  batch 30/33  loss=0.3423
+Epoch 197/300  train=3.784e-01  rmse=1.0435  lr=1.0e-04  190s
+  batch 10/33  loss=0.4346
+  batch 20/33  loss=0.3901
+  batch 30/33  loss=0.3536
+Epoch 198/300  train=3.851e-01  rmse=1.1991  lr=1.0e-04  190s
+  batch 10/33  loss=0.4143
+  batch 20/33  loss=0.3982
+  batch 30/33  loss=0.3406
+Epoch 199/300  train=3.799e-01  rmse=1.1156  lr=1.0e-04  189s
+  batch 10/33  loss=0.3524
+  batch 20/33  loss=0.4249
+  batch 30/33  loss=0.3004
+Epoch 200/300  train=3.785e-01  rmse=1.0352  lr=1.0e-04  189s
+  batch 10/33  loss=0.4511
+  batch 20/33  loss=0.3588
+  batch 30/33  loss=0.4489
+Epoch 201/300  train=3.767e-01  rmse=1.1192  lr=1.0e-04  190s
+  batch 10/33  loss=0.3385
+  batch 20/33  loss=0.4068
+  batch 30/33  loss=0.3671
+Epoch 202/300  train=3.836e-01  rmse=1.0392  lr=1.0e-04  190s
+  batch 10/33  loss=0.3839
+  batch 20/33  loss=0.3005
+  batch 30/33  loss=0.3372
+Epoch 203/300  train=3.773e-01  rmse=1.0920  lr=1.0e-04  190s
+  batch 10/33  loss=0.3786
+  batch 20/33  loss=0.3956
+  batch 30/33  loss=0.3814
+Epoch 204/300  train=3.749e-01  rmse=1.0988  lr=1.0e-04  190s
+  -> best  monitor=3.749e-01
+  batch 10/33  loss=0.3030
+  batch 20/33  loss=0.3787
+  batch 30/33  loss=0.3888
+Epoch 205/300  train=3.743e-01  rmse=1.0236  lr=1.0e-04  190s
+  -> best  monitor=3.743e-01
+  batch 10/33  loss=0.3829
+  batch 20/33  loss=0.4308
+  batch 30/33  loss=0.3352
+Epoch 206/300  train=3.750e-01  rmse=0.9944  lr=1.0e-04  189s
+  batch 10/33  loss=0.3346
+  batch 20/33  loss=0.4319
+  batch 30/33  loss=0.3774
+Epoch 207/300  train=3.772e-01  rmse=1.0363  lr=1.0e-04  190s
+  batch 10/33  loss=0.3564
+  batch 20/33  loss=0.3850
+  batch 30/33  loss=0.3772
+Epoch 208/300  train=3.733e-01  rmse=1.1185  lr=1.0e-04  189s
+  -> best  monitor=3.733e-01
+  batch 10/33  loss=0.4407
+  batch 20/33  loss=0.3878
+  batch 30/33  loss=0.3791
+Epoch 209/300  train=3.725e-01  rmse=1.0671  lr=1.0e-04  191s
+  -> best  monitor=3.725e-01
+  batch 10/33  loss=0.3318
+  batch 20/33  loss=0.4323
+  batch 30/33  loss=0.3970
+Epoch 210/300  train=3.726e-01  rmse=1.0938  lr=1.0e-04  189s
+  batch 10/33  loss=0.3284
+  batch 20/33  loss=0.3864
+  batch 30/33  loss=0.3881
+Epoch 211/300  train=3.686e-01  rmse=1.0115  lr=1.0e-04  190s
+  -> best  monitor=3.686e-01
+  batch 10/33  loss=0.3555
+  batch 20/33  loss=0.3190
+  batch 30/33  loss=0.3752
+Epoch 212/300  train=3.741e-01  rmse=1.0824  lr=1.0e-04  190s
+  batch 10/33  loss=0.3343
+  batch 20/33  loss=0.4003
+  batch 30/33  loss=0.3797
+Epoch 213/300  train=3.707e-01  rmse=1.0102  lr=1.0e-04  189s
+  batch 10/33  loss=0.3675
+  batch 20/33  loss=0.3399
+  batch 30/33  loss=0.3799
+Epoch 214/300  train=3.672e-01  rmse=0.9997  lr=1.0e-04  190s
+  -> best  monitor=3.672e-01
+  batch 10/33  loss=0.3621
+  batch 20/33  loss=0.3631
+  batch 30/33  loss=0.3772
+Epoch 215/300  train=3.720e-01  rmse=1.1822  lr=1.0e-04  190s
+  batch 10/33  loss=0.3896
+  batch 20/33  loss=0.3586
+  batch 30/33  loss=0.4063
+Epoch 216/300  train=3.721e-01  rmse=1.0296  lr=1.0e-04  190s
+  batch 10/33  loss=0.3898
+  batch 20/33  loss=0.3566
+  batch 30/33  loss=0.3751
+Epoch 217/300  train=3.724e-01  rmse=1.0303  lr=1.0e-04  189s
+  batch 10/33  loss=0.4448
+  batch 20/33  loss=0.3735
+  batch 30/33  loss=0.3846
+Epoch 218/300  train=3.743e-01  rmse=1.1737  lr=1.0e-04  190s
+  batch 10/33  loss=0.4293
+  batch 20/33  loss=0.3543
+  batch 30/33  loss=0.3530
+Epoch 219/300  train=3.663e-01  rmse=1.1666  lr=1.0e-04  190s
+  -> best  monitor=3.663e-01
+  batch 10/33  loss=0.3724
+  batch 20/33  loss=0.3834
+  batch 30/33  loss=0.4271
+Epoch 220/300  train=3.675e-01  rmse=1.0469  lr=1.0e-04  190s
+  batch 10/33  loss=0.3740
+  batch 20/33  loss=0.3678
+  batch 30/33  loss=0.3328
+Epoch 221/300  train=3.699e-01  rmse=1.1472  lr=1.0e-04  190s
+  batch 10/33  loss=0.3176
+  batch 20/33  loss=0.3547
+  batch 30/33  loss=0.3521
+Epoch 222/300  train=3.679e-01  rmse=1.0005  lr=1.0e-04  189s
+  batch 10/33  loss=0.3222
+  batch 20/33  loss=0.4030
+  batch 30/33  loss=0.3520
+Epoch 223/300  train=3.637e-01  rmse=1.0129  lr=1.0e-04  189s
+  -> best  monitor=3.637e-01
+  batch 10/33  loss=0.3456
+  batch 20/33  loss=0.4597
+  batch 30/33  loss=0.3050
+Epoch 224/300  train=3.677e-01  rmse=0.9712  lr=1.0e-04  189s
+  batch 10/33  loss=0.3049
+  batch 20/33  loss=0.3815
+  batch 30/33  loss=0.3320
+Epoch 225/300  train=3.671e-01  rmse=1.0110  lr=1.0e-04  190s
+  batch 10/33  loss=0.3775
+  batch 20/33  loss=0.3440
+  batch 30/33  loss=0.3299
+Epoch 226/300  train=3.708e-01  rmse=1.1753  lr=1.0e-04  189s
+  batch 10/33  loss=0.3855
+  batch 20/33  loss=0.3249
+  batch 30/33  loss=0.4802
+Epoch 227/300  train=3.675e-01  rmse=0.9741  lr=1.0e-04  190s
+  batch 10/33  loss=0.3137
+  batch 20/33  loss=0.3464
+  batch 30/33  loss=0.3152
+Epoch 228/300  train=3.630e-01  rmse=1.0066  lr=1.0e-04  190s
+  -> best  monitor=3.630e-01
+  batch 10/33  loss=0.3729
+  batch 20/33  loss=0.3507
+  batch 30/33  loss=0.3855
+Epoch 229/300  train=3.675e-01  rmse=1.0991  lr=1.0e-04  190s
+  batch 10/33  loss=0.3752
+  batch 20/33  loss=0.3213
+  batch 30/33  loss=0.4175
+Epoch 230/300  train=3.658e-01  rmse=1.0310  lr=1.0e-04  189s
+  batch 10/33  loss=0.3735
+  batch 20/33  loss=0.3602
+  batch 30/33  loss=0.3889
+Epoch 231/300  train=3.642e-01  rmse=1.1264  lr=1.0e-04  192s
+  batch 10/33  loss=0.3715
+  batch 20/33  loss=0.4211
+  batch 30/33  loss=0.3968
+Epoch 232/300  train=3.632e-01  rmse=1.0700  lr=1.0e-04  190s
+  batch 10/33  loss=0.4081
+  batch 20/33  loss=0.3919
+  batch 30/33  loss=0.3072
+Epoch 233/300  train=3.673e-01  rmse=1.0039  lr=1.0e-04  190s
+  batch 10/33  loss=0.3555
+  batch 20/33  loss=0.3607
+  batch 30/33  loss=0.3393
+Epoch 234/300  train=3.600e-01  rmse=1.0743  lr=1.0e-04  191s
+  -> best  monitor=3.600e-01
+  batch 10/33  loss=0.3220
+  batch 20/33  loss=0.3517
+  batch 30/33  loss=0.4000
+Epoch 235/300  train=3.664e-01  rmse=0.9968  lr=1.0e-04  192s
+  batch 10/33  loss=0.3905
+  batch 20/33  loss=0.4008
+  batch 30/33  loss=0.3379
+Epoch 236/300  train=3.673e-01  rmse=1.0559  lr=1.0e-04  191s
+  batch 10/33  loss=0.3367
+  batch 20/33  loss=0.3396
+  batch 30/33  loss=0.3645
+Epoch 237/300  train=3.580e-01  rmse=0.9628  lr=1.0e-04  190s
+  -> best  monitor=3.580e-01
+  batch 10/33  loss=0.3492
+  batch 20/33  loss=0.3635
+  batch 30/33  loss=0.3640
+Epoch 238/300  train=3.608e-01  rmse=0.9848  lr=1.0e-04  190s
+  batch 10/33  loss=0.3314
+  batch 20/33  loss=0.3551
+  batch 30/33  loss=0.3716
+Epoch 239/300  train=3.611e-01  rmse=1.0281  lr=1.0e-04  191s
+  batch 10/33  loss=0.2959
+  batch 20/33  loss=0.3491
+  batch 30/33  loss=0.3274
+Epoch 240/300  train=3.655e-01  rmse=1.3212  lr=1.0e-04  190s
+  batch 10/33  loss=0.4163
+  batch 20/33  loss=0.4352
+  batch 30/33  loss=0.3574
+Epoch 241/300  train=3.676e-01  rmse=1.0082  lr=1.0e-04  190s
+  batch 10/33  loss=0.3014
+  batch 20/33  loss=0.3643
+  batch 30/33  loss=0.4133
+Epoch 242/300  train=3.599e-01  rmse=1.0376  lr=1.0e-04  189s
+  batch 10/33  loss=0.3425
+  batch 20/33  loss=0.4219
+  batch 30/33  loss=0.4103
+Epoch 243/300  train=3.630e-01  rmse=1.0294  lr=1.0e-04  190s
+  batch 10/33  loss=0.3596
+  batch 20/33  loss=0.3974
+  batch 30/33  loss=0.3935
+Epoch 244/300  train=3.628e-01  rmse=1.0523  lr=1.0e-04  190s
+  batch 10/33  loss=0.3427
+  batch 20/33  loss=0.3889
+  batch 30/33  loss=0.4103
+Epoch 245/300  train=3.604e-01  rmse=1.1224  lr=1.0e-04  189s
+  batch 10/33  loss=0.3475
+  batch 20/33  loss=0.3627
+  batch 30/33  loss=0.3478
+Epoch 246/300  train=3.595e-01  rmse=1.0066  lr=1.0e-04  190s
+  batch 10/33  loss=0.3592
+  batch 20/33  loss=0.3054
+  batch 30/33  loss=0.3488
+Epoch 247/300  train=3.580e-01  rmse=1.0045  lr=1.0e-04  190s
+  batch 10/33  loss=0.3727
+  batch 20/33  loss=0.3630
+  batch 30/33  loss=0.3117
+Epoch 248/300  train=3.577e-01  rmse=0.9996  lr=1.0e-04  191s
+  -> best  monitor=3.577e-01
+  batch 10/33  loss=0.3219
+  batch 20/33  loss=0.3054
+  batch 30/33  loss=0.3243
+Epoch 249/300  train=3.544e-01  rmse=1.0360  lr=1.0e-04  190s
+  -> best  monitor=3.544e-01
+  batch 10/33  loss=0.4963
+  batch 20/33  loss=0.3497
+  batch 30/33  loss=0.4024
+Epoch 250/300  train=3.587e-01  rmse=1.0527  lr=1.0e-04  189s
+  batch 10/33  loss=0.3229
+  batch 20/33  loss=0.4106
+  batch 30/33  loss=0.4015
+Epoch 251/300  train=3.554e-01  rmse=0.9866  lr=1.0e-04  190s
+  batch 10/33  loss=0.3730
+  batch 20/33  loss=0.3589
+  batch 30/33  loss=0.3371
+Epoch 252/300  train=3.574e-01  rmse=0.9878  lr=1.0e-04  190s
+  batch 10/33  loss=0.3483
+  batch 20/33  loss=0.2978
+  batch 30/33  loss=0.3276
+Epoch 253/300  train=3.549e-01  rmse=0.9893  lr=1.0e-04  190s
+  batch 10/33  loss=0.3390
+  batch 20/33  loss=0.3959
+  batch 30/33  loss=0.3587
+Epoch 254/300  train=3.597e-01  rmse=1.0105  lr=1.0e-04  189s
+  batch 10/33  loss=0.4039
+  batch 20/33  loss=0.3164
+  batch 30/33  loss=0.3509
+Epoch 255/300  train=3.515e-01  rmse=0.9087  lr=1.0e-04  191s
+  -> best  monitor=3.515e-01
+  batch 10/33  loss=0.3646
+  batch 20/33  loss=0.3254
+  batch 30/33  loss=0.3797
+Epoch 256/300  train=3.558e-01  rmse=1.0525  lr=1.0e-04  190s
+  batch 10/33  loss=0.3639
+  batch 20/33  loss=0.3487
+  batch 30/33  loss=0.3149
+Epoch 257/300  train=3.553e-01  rmse=1.0365  lr=1.0e-04  190s
+  batch 10/33  loss=0.3774
+  batch 20/33  loss=0.3682
+  batch 30/33  loss=0.2935
+Epoch 258/300  train=3.558e-01  rmse=0.9597  lr=1.0e-04  190s
+  batch 10/33  loss=0.3561
+  batch 20/33  loss=0.3129
+  batch 30/33  loss=0.3404
+Epoch 259/300  train=3.533e-01  rmse=1.2438  lr=1.0e-04  189s
+  batch 10/33  loss=0.3313
+  batch 20/33  loss=0.3496
+  batch 30/33  loss=0.3442
+Epoch 260/300  train=3.569e-01  rmse=1.2365  lr=1.0e-04  189s
+  batch 10/33  loss=0.3578
+  batch 20/33  loss=0.4013
+  batch 30/33  loss=0.2752
+Epoch 261/300  train=3.575e-01  rmse=1.0319  lr=1.0e-04  190s
+  batch 10/33  loss=0.3367
+  batch 20/33  loss=0.3576
+  batch 30/33  loss=0.3146
+Epoch 262/300  train=3.568e-01  rmse=1.0429  lr=1.0e-04  190s
+  batch 10/33  loss=0.3912
+  batch 20/33  loss=0.3539
+  batch 30/33  loss=0.3854
+Epoch 263/300  train=3.535e-01  rmse=0.9531  lr=1.0e-04  190s
+  batch 10/33  loss=0.3558
+  batch 20/33  loss=0.3320
+  batch 30/33  loss=0.3096
+Epoch 264/300  train=3.564e-01  rmse=1.0010  lr=1.0e-04  190s
+  batch 10/33  loss=0.3217
+  batch 20/33  loss=0.4058
+  batch 30/33  loss=0.3637
+Epoch 265/300  train=3.546e-01  rmse=1.1436  lr=1.0e-04  189s
+  batch 10/33  loss=0.3491
+  batch 20/33  loss=0.3518
+  batch 30/33  loss=0.3940
+Epoch 266/300  train=3.521e-01  rmse=0.9705  lr=5.0e-05  189s
+  batch 10/33  loss=0.3190
+  batch 20/33  loss=0.3437
+  batch 30/33  loss=0.3641
+Epoch 267/300  train=3.514e-01  rmse=0.9773  lr=5.0e-05  189s
+  -> best  monitor=3.514e-01
+  batch 10/33  loss=0.3274
+  batch 20/33  loss=0.3707
+  batch 30/33  loss=0.3702
+Epoch 268/300  train=3.427e-01  rmse=1.0807  lr=5.0e-05  189s
+  -> best  monitor=3.427e-01
+  batch 10/33  loss=0.3650
+  batch 20/33  loss=0.3511
+  batch 30/33  loss=0.3447
+Epoch 269/300  train=3.439e-01  rmse=1.0013  lr=5.0e-05  190s
+  batch 10/33  loss=0.3020
+  batch 20/33  loss=0.3341
+  batch 30/33  loss=0.3507
+Epoch 270/300  train=3.446e-01  rmse=1.0150  lr=5.0e-05  190s
+  batch 10/33  loss=0.3336
+  batch 20/33  loss=0.4104
+  batch 30/33  loss=0.3330
+Epoch 271/300  train=3.444e-01  rmse=1.0679  lr=5.0e-05  189s
+  batch 10/33  loss=0.3886
+  batch 20/33  loss=0.2913
+  batch 30/33  loss=0.3891
+Epoch 272/300  train=3.434e-01  rmse=1.0358  lr=5.0e-05  189s
+  batch 10/33  loss=0.3201
+  batch 20/33  loss=0.3320
+  batch 30/33  loss=0.3464
+Epoch 273/300  train=3.456e-01  rmse=1.0102  lr=5.0e-05  190s
+  batch 10/33  loss=0.3307
+  batch 20/33  loss=0.3311
+  batch 30/33  loss=0.3431
+Epoch 274/300  train=3.444e-01  rmse=0.9467  lr=5.0e-05  190s
+  batch 10/33  loss=0.3309
+  batch 20/33  loss=0.3602
+  batch 30/33  loss=0.3306
+Epoch 275/300  train=3.427e-01  rmse=1.0309  lr=5.0e-05  189s
+  -> best  monitor=3.427e-01
+  batch 10/33  loss=0.4106
+  batch 20/33  loss=0.3218
+  batch 30/33  loss=0.2670
+Epoch 276/300  train=3.409e-01  rmse=0.9375  lr=5.0e-05  189s
+  -> best  monitor=3.409e-01
+  batch 10/33  loss=0.3201
+  batch 20/33  loss=0.3014
+  batch 30/33  loss=0.3299
+Epoch 277/300  train=3.439e-01  rmse=1.0086  lr=5.0e-05  190s
+  batch 10/33  loss=0.3391
+  batch 20/33  loss=0.3497
+  batch 30/33  loss=0.3184
+Epoch 278/300  train=3.424e-01  rmse=0.9947  lr=5.0e-05  189s
+  batch 10/33  loss=0.3150
+  batch 20/33  loss=0.3048
+  batch 30/33  loss=0.2904
+Epoch 279/300  train=3.442e-01  rmse=0.9825  lr=5.0e-05  189s
+  batch 10/33  loss=0.3632
+  batch 20/33  loss=0.3346
+  batch 30/33  loss=0.3786
+Epoch 280/300  train=3.397e-01  rmse=1.0956  lr=5.0e-05  190s
+  -> best  monitor=3.397e-01
+  batch 10/33  loss=0.3663
+  batch 20/33  loss=0.3064
+  batch 30/33  loss=0.3383
+Epoch 281/300  train=3.381e-01  rmse=0.9422  lr=5.0e-05  189s
+  -> best  monitor=3.381e-01
+  batch 10/33  loss=0.2976
+  batch 20/33  loss=0.3318
+  batch 30/33  loss=0.3599
+Epoch 282/300  train=3.421e-01  rmse=0.9356  lr=5.0e-05  190s
+  batch 10/33  loss=0.3245
+  batch 20/33  loss=0.3677
+  batch 30/33  loss=0.3049
+Epoch 283/300  train=3.389e-01  rmse=1.0176  lr=5.0e-05  190s
+  batch 10/33  loss=0.3997
+  batch 20/33  loss=0.3005
+  batch 30/33  loss=0.2953
+Epoch 284/300  train=3.429e-01  rmse=0.9956  lr=5.0e-05  189s
+  batch 10/33  loss=0.3200
+  batch 20/33  loss=0.3379
+  batch 30/33  loss=0.3990
+Epoch 285/300  train=3.404e-01  rmse=0.9988  lr=5.0e-05  190s
+  batch 10/33  loss=0.3735
+  batch 20/33  loss=0.3443
+  batch 30/33  loss=0.3902
+Epoch 286/300  train=3.413e-01  rmse=1.0524  lr=5.0e-05  190s
+  batch 10/33  loss=0.3885
+  batch 20/33  loss=0.3310
+  batch 30/33  loss=0.3504
+Epoch 287/300  train=3.427e-01  rmse=0.9257  lr=5.0e-05  189s
+  batch 10/33  loss=0.3411
+  batch 20/33  loss=0.3291
+  batch 30/33  loss=0.3912
+Epoch 288/300  train=3.436e-01  rmse=0.9918  lr=5.0e-05  190s
+  batch 10/33  loss=0.3379
+  batch 20/33  loss=0.3880
+  batch 30/33  loss=0.3329
+Epoch 289/300  train=3.417e-01  rmse=0.9367  lr=5.0e-05  189s
+  batch 10/33  loss=0.2845
+  batch 20/33  loss=0.3475
+  batch 30/33  loss=0.3598
+Epoch 290/300  train=3.402e-01  rmse=0.9071  lr=5.0e-05  190s
+  batch 10/33  loss=0.2774
+  batch 20/33  loss=0.3181
+  batch 30/33  loss=0.3463
+Epoch 291/300  train=3.375e-01  rmse=1.0544  lr=5.0e-05  189s
+  -> best  monitor=3.375e-01
+  batch 10/33  loss=0.3131
+  batch 20/33  loss=0.3398
+  batch 30/33  loss=0.3306
+Epoch 292/300  train=3.372e-01  rmse=0.9103  lr=5.0e-05  190s
+  -> best  monitor=3.372e-01
+  batch 10/33  loss=0.3222
+  batch 20/33  loss=0.3956
+  batch 30/33  loss=0.3612
+Epoch 293/300  train=3.428e-01  rmse=1.2729  lr=5.0e-05  190s
+  batch 10/33  loss=0.3289
+  batch 20/33  loss=0.3470
+  batch 30/33  loss=0.3265
+Epoch 294/300  train=3.367e-01  rmse=0.9007  lr=5.0e-05  190s
+  -> best  monitor=3.367e-01
+  batch 10/33  loss=0.3635
+  batch 20/33  loss=0.3534
+  batch 30/33  loss=0.4248
+Epoch 295/300  train=3.352e-01  rmse=0.9249  lr=5.0e-05  189s
+  -> best  monitor=3.352e-01
+  batch 10/33  loss=0.3497
+  batch 20/33  loss=0.3568
+  batch 30/33  loss=0.3645
+Epoch 296/300  train=3.391e-01  rmse=0.9003  lr=5.0e-05  190s
+  batch 10/33  loss=0.3181
+  batch 20/33  loss=0.3155
+  batch 30/33  loss=0.3053
+Epoch 297/300  train=3.381e-01  rmse=0.9894  lr=5.0e-05  190s
+  batch 10/33  loss=0.3118
+  batch 20/33  loss=0.3244
+  batch 30/33  loss=0.3486
+Epoch 298/300  train=3.349e-01  rmse=0.9261  lr=5.0e-05  189s
+  -> best  monitor=3.349e-01
+  batch 10/33  loss=0.3888
+  batch 20/33  loss=0.3119
+  batch 30/33  loss=0.3084
+Epoch 299/300  train=3.410e-01  rmse=0.9710  lr=5.0e-05  190s
+  batch 10/33  loss=0.3231
+  batch 20/33  loss=0.3026
+  batch 30/33  loss=0.3033
+Epoch 300/300  train=3.373e-01  rmse=0.9418  lr=5.0e-05  190s
+
+Test evaluation (best checkpoint)...
+Test (RMSE / MAE in μg/m³):
+  total: 1.122440
+  main: 0.201156
+  nonneg: 0.000000
+  smooth: 0.000000
+  anom: 0.068513
+  grad: 0.002943
+  pattern: 0.364145
+  spectral: 0.485683
+  var: 0.000000
+  rmse: 2.889698
+  rmse_low: 3.775137
+  rmse_high: 0.477947
+  mae: 1.341248
+
+  z  Height(m)        R²
+--------------------------
+  0       15.0    0.1739  <- ~0-100m
+  1       25.0    0.1894  <- ~0-100m
+  2       35.0    0.1694  <- ~0-100m
+  3       45.0    0.1750  <- ~0-100m
+  4       55.0    0.2398  <- ~0-100m
+  5       75.0    0.6070  <- ~0-100m
+  6       95.0    0.8221  <- ~0-100m
+  7      115.0    0.9034  <- ~0-100m
+  8      135.0    0.9352
+  9      155.0    0.9542
+ 10      175.0    0.9629
+ 11      195.0    0.9696
