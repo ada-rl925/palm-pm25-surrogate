@@ -4,14 +4,15 @@ One YAML per trained model. Each fully specifies data, model, loss, and training
 `python3 src/train.py --config <this yaml>` reproduces that run. Output goes to the
 config's `experiment.output_dir` / `experiment.name`.
 
-## `main/` — the three published models
+## `main/` — the four published models
 | Config | Model | Domain |
 |--------|-------|--------|
 | `full_domain.yaml` | full-domain production model | 800×800, 12 levels, high_weight=0, non-negativity on |
 | `spatial_transfer1.yaml` | spatial transfer, interior tile (T4) | trains on surrounding tiles, tests on held-out `[200:400, 200:400]` |
 | `spatial_transfer2.yaml` | spatial transfer, central-London tile | held-out `[0:200, 400:600]` (extreme high-emission block) |
+| `future_transfer.yaml` | future transfer (temporal extrapolation) | train Jul+Aug, test held-out Sep (report Sep 4–6: RMSE 1.068 / r 0.766) |
 
-All three share the final recipe: z0–11, `high_weight=0`, `lambda_nonneg=0.1`, all loss terms, 300 epochs.
+All four share the final recipe: z0–11, `high_weight=0`, `lambda_nonneg=0.1`, all loss terms, 300 epochs.
 
 ## `input_importance_800/` — input leave-one-out (notebook 02)
 Ten configs, each zeroing one physical variable's *t* and *t−1* channels (`data.zero_channels`)

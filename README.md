@@ -20,7 +20,7 @@ src/            model.py (UNet3DFiLM + PhysicsLoss), dataloader.py,
                 draw_study_area_map.py (standalone helper for the study-area figure)
 
 configs/        one YAML configuration per experiment                     [configs/README.md]
-  main/                 final models: full_domain, spatial_transfer1, spatial_transfer2
+  main/                 final models: full_domain, spatial_transfer1, spatial_transfer2, future_transfer
   input_importance_800/ leave-one-out input-feature ablation
   loss_ablation_800/    leave-one-out loss-component ablation
   transfer_ratio/       transfer-coverage experiments (1, 3, 8 and 15 tiles)
@@ -30,7 +30,7 @@ notebooks/      Jupyter notebooks for analysis                            [noteb
   experiments/          EDA (01), input importance (02), loss ablation (03),
                         transfer scaling (04); generated figures included
 
-outputs/        configs, metrics.csv, test_results.json and checkpoints   [outputs/README.md]
+outputs/        configs, metrics.csv, test_results.json and checkpoints   [outputs/README.md]                                
 ```
 
 ## Key models (weights included)
@@ -40,6 +40,7 @@ outputs/        configs, metrics.csv, test_results.json and checkpoints   [outpu
 | **Temporal Generalisation** | full 800×800, 12 levels (15–195 m) | RMSE 0.755 / r 0.887 | Unseen time periods within the same domain |
 | **Spatial Transfer 1** | held-out interior tile [200:400, 200:400] | RMSE 0.546 / r 0.511 | Transfer to an unseen neighbouring region |
 | **Spatial Transfer 2** | held-out centre tile [0:200, 400:600] | RMSE 2.628 / r 0.713 | Transfer to an unseen neighbouring region |
+| **Future Transfer** | full 800×800; train Jul+Aug, test held-out Sep | RMSE 1.068 / r 0.766 (Sep 4–6) | Extrapolation to a later, unseen month; whole-Sep RMSE 22.8 is driven by the anomalous 7 Sep |
 
 Other runs' weights are not distributed (regenerate via their config);
 `outputs/README.md` documents every experiment and its result.
