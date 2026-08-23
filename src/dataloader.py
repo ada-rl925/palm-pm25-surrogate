@@ -41,7 +41,12 @@ import torch
 from torch.utils.data import Dataset
 
 # ── Simulation registry ───────────────────────────────────────────────────────
-BASE_DIR = '/data/jzheng/acher2_data'
+# Defaults to the compact dataset shipped in the repo (../data). Override with the
+# PALM_DATA_DIR env var to point at a full raw PALM output tree instead.
+BASE_DIR = os.environ.get(
+    'PALM_DATA_DIR',
+    os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'data'),
+)
 
 SIM_CONFIG = {
     'london_cm20190720-23': {
@@ -203,8 +208,16 @@ class PALMDatasetV2(Dataset):
         self.augment        = augment
         self.prognostic     = prognostic
 
-        b2d_raw, zt_raw   = self._load_static_raw()   # (800, 800) each
-        self._emission_z  = self._compute_emission_z(b2d_raw, zt_raw)  # (800, 800) int32
+        # Per-pixel z level at which the surface emission is injected. The compact
+        # dataset ships this as a pre-baked field (emission_z.npy) so the OS-derived
+        # static drivers need not be redistributed; if it is absent, fall back to
+        # computing it from the raw static driver (buildings_2d + terrain).
+        ez_path = os.path.join(BASE_DIR, 'emission_z.npy')
+        if os.path.exists(ez_path):
+            self._emission_z = np.load(ez_path).astype(np.int32)   # (800, 800)
+        else:
+            b2d_raw, zt_raw   = self._load_static_raw()   # (800, 800) each
+            self._emission_z  = self._compute_emission_z(b2d_raw, zt_raw)  # (800, 800) int32
 
         self._emissions = {s: self._load_emissions(s) for s in self.sims}
         self._dynamics  = {s: self._load_dynamic(s)   for s in self.sims}
@@ -378,8 +391,10 @@ class PALMDatasetV2(Dataset):
         s = self._stats if (self.normalise and self._stats is not None) else None
 
         if s is not None:
-            pm25_mean = s['pm25']['mean'][:, np.newaxis, np.newaxis]  # (N_Z,1,1)
-            pm25_std  = s['pm25']['std'][:, np.newaxis, np.newaxis]
+            nz_pm     = pm25.shape[0]   # target level count (may be < len(stats) when the
+                                        # compact av_xy is pre-trimmed to the used levels)
+            pm25_mean = s['pm25']['mean'][:nz_pm, np.newaxis, np.newaxis]  # (nz,1,1)
+            pm25_std  = s['pm25']['std'][:nz_pm, np.newaxis, np.newaxis]
             pm25      = (pm25 - pm25_mean) / pm25_std
 
         # ── Per-hour feature blocks: t, t-1, ..., t-t_hist ───────────────────
@@ -521,6 +536,7 @@ class PALMDatasetV2(Dataset):
         pm_sum_l = np.zeros(N_Z, np.float64)
         pm_sq_l  = np.zeros(N_Z, np.float64)
         pm_n_l   = np.zeros(N_Z, np.int64)
+        nz_pm    = N_Z   # actual target level count (compact av_xy may hold fewer)
 
         for i, idx in enumerate(indices):
             sim, av_path, t_idx, t_hour, _ = self._index[idx]
@@ -542,6 +558,7 @@ class PALMDatasetV2(Dataset):
                 pm_raw = pm_raw[..., y0:y1, x0:x1]
 
             pm = np.log1p(np.where(mask, pm_raw, 0.0) * PM25_SCALE)
+            nz_pm = pm.shape[0]
 
             flat = em.ravel().astype(np.float64)
             em_sum += flat.sum(); em_sq += (flat**2).sum(); em_n += flat.size
@@ -558,7 +575,7 @@ class PALMDatasetV2(Dataset):
                 pm_sq_g  += (valid_pm ** 2).sum()
                 pm_n_g   += valid_pm.size
             else:
-                for z in range(N_Z):
+                for z in range(nz_pm):
                     v = pm[z][mask[z]].astype(np.float64)
                     pm_sum_l[z] += v.sum()
                     pm_sq_l[z]  += (v ** 2).sum()
@@ -572,11 +589,11 @@ class PALMDatasetV2(Dataset):
 
         N = len(indices)
         if self.global_pm_norm:
-            pm25_mean = np.full(N_Z, pm_sum_g / max(pm_n_g, 1), dtype=np.float32)
-            pm25_std  = np.full(N_Z, _std(pm_sq_g, pm_sum_g, pm_n_g), dtype=np.float32)
+            pm25_mean = np.full(nz_pm, pm_sum_g / max(pm_n_g, 1), dtype=np.float32)
+            pm25_std  = np.full(nz_pm, _std(pm_sq_g, pm_sum_g, pm_n_g), dtype=np.float32)
         else:
-            pm25_mean = np.array([pm_sum_l[z] / max(pm_n_l[z], 1) for z in range(N_Z)], dtype=np.float32)
-            pm25_std  = np.array([_std(pm_sq_l[z], pm_sum_l[z], pm_n_l[z]) for z in range(N_Z)], dtype=np.float32)
+            pm25_mean = np.array([pm_sum_l[z] / max(pm_n_l[z], 1) for z in range(nz_pm)], dtype=np.float32)
+            pm25_std  = np.array([_std(pm_sq_l[z], pm_sum_l[z], pm_n_l[z]) for z in range(nz_pm)], dtype=np.float32)
 
         self._stats = {
             'emission': {
