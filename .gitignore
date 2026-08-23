@@ -5,9 +5,8 @@ __pycache__/
 .ipynb_checkpoints/
 
 # ─── Data (PALM NetCDF too large for git — distributed separately) ───
-# Ignore everything under data/ except its README (points users to the download).
+# Ignore everything under data
 data/*
-!data/README.md
 *.nc
 
 # ─── Model weights: keep every best.pt (all runs), ignore last.pt and other .pt ───
