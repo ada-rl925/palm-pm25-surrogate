@@ -1,6 +1,16 @@
+# core
 torch>=2.0
 numpy
 netCDF4
 PyYAML
 matplotlib
+scipy
+scikit-learn
 tensorboard
+
+# optional — only for src/draw_study_area_map.py (study-area / layout figures; needs internet)
+# osmnx
+# contextily
+# geopandas
+# pyproj
+# shapely
