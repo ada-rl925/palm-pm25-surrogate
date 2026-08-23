@@ -30,7 +30,7 @@ notebooks/      Jupyter notebooks for analysis                            [noteb
   experiments/          EDA (01), input importance (02), loss ablation (03),
                         transfer scaling (04); generated figures included
 
-outputs/        configs, metrics.csv, test_results.json and checkpoints   [outputs/README.md]                                
+outputs/        configs, metrics.csv, test_results.json and checkpoints   [outputs/README.md]
 ```
 
 ## Key models (weights included)
@@ -60,15 +60,19 @@ Other runs' weights are not distributed (regenerate via their config);
 
 Both studies render directly from the JSON summaries in `outputs/ablation_{input,loss}/`, so the git-ignored ablation checkpoints are not required.
 
+## Data
+
+The dataset is **not included in this repository** - it is too large to be uploaded to GitHub or publicly hosted online. If access to the datasets is required, please contact Dr Jie Zheng ([jie.zheng1@imperial.ac.uk](mailto:jie.zheng1@imperial.ac.uk)).
+
 ## Reproduce
 
 ```bash
 pip install -r requirements.txt
-# The original PALM simulation data are not included in this repository.
-# point src/dataloader.py BASE_DIR at the PALM output tree, then:
+# Download the data into ./data first, then:
 python3 src/train.py --config configs/main/full_domain.yaml
+# (to read a full raw PALM tree instead of ./data, set PALM_DATA_DIR)
 ```
 
-## Data Availability
+## AI Usage Declaration
 
-The PALM simulation data used in this project are too large to be uploaded to GitHub or publicly hosted online. If access to the original datasets is required, please contact the author.
+Claude (Anthropic) was used during this project to assist with code development and debugging.
