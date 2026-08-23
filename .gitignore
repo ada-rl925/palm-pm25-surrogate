@@ -4,15 +4,15 @@ __pycache__/
 *.egg-info/
 .ipynb_checkpoints/
 
-# ─── Data (raw PALM LES NetCDF — not distributed) ───
-data/
+# ─── Data (PALM NetCDF too large for git — distributed separately) ───
+# Ignore everything under data/ except its README (points users to the download).
+data/*
+!data/README.md
 *.nc
 
-# ─── Model weights: ignore all, keep only the 3 published models ───
+# ─── Model weights: keep every best.pt (all runs), ignore last.pt and other .pt ───
 *.pt
-!outputs/full_domain/checkpoints/best.pt
-!outputs/spatial_transfer1/checkpoints/best.pt
-!outputs/spatial_transfer2/checkpoints/best.pt
+!**/best.pt
 
 # ─── Training scratch / logs not meant for publication ───
 outputs/_archive/
