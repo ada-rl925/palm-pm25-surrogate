@@ -1,8 +1,8 @@
 # `outputs/` — run artifacts
 
 Per-run outputs written by `src/train.py`: `config.yaml`, `metrics.csv`, `test_results.json`,
-and `checkpoints/`. **Model weights (`*.pt`) are git-ignored except the three published
-models** (see `.gitignore`); other runs regenerate from their config.
+and `checkpoints/`. The **best checkpoint (`best.pt`) of every run is kept**; `last.pt` and
+any other weights are git-ignored (see `.gitignore`).
 
 ## Published models (weights included)
 | Directory | Model | Test (z0–11, pooled) |
@@ -10,8 +10,9 @@ models** (see `.gitignore`); other runs regenerate from their config.
 | `full_domain/` | full-domain production model (~1.6 M params) | RMSE 0.755 / r 0.887 / R² 0.940 |
 | `spatial_transfer1/` | transfer, interior tile T4 (never seen) | RMSE 0.546 / r 0.511 |
 | `spatial_transfer2/` | transfer, central-London tile (never seen) | RMSE 2.628 / r 0.713 |
+| `future_transfer/` | temporal extrapolation, train Jul+Aug / test held-out Sep | RMSE 1.068 / r 0.766 (Sep 4–6) |
 
-## Ablations (weights git-ignored; results kept as JSON)
+## Ablations (best.pt kept; results also summarised as JSON)
 | Directory | Study | Notebook | Summary JSON |
 |-----------|-------|----------|--------------|
 | `ablation_input/` | input leave-one-out retraining (10 runs `ii800_*`) | `02_input_importance` | `input_importance_layer.json`, `rf_importance.json` |
@@ -26,5 +27,6 @@ baseline); the notebooks read only these, so they render without the ablation ch
 the pattern/spectral loss terms matter mainly at the **upper levels (135–195 m)**.
 
 ## Other
+- `figs/` — committed figures used across notebooks and the paper.
 - `train_logs/` — stdout logs of the ablation runs.
 - `_geo_cache/` — cached OSM geojson from `src/draw_study_area_map.py` (git-ignored).
