@@ -32,6 +32,9 @@ import matplotlib.ticker as mticker
 import osmnx as ox
 from pyproj import Transformer
 
+from paper_style import set_paper_font   # figure font consistent with main text
+set_paper_font()
+
 BNG = "EPSG:27700"
 HERE = os.path.dirname(os.path.abspath(__file__))          # src/
 ROOT = os.path.dirname(HERE)                                # repo root
@@ -269,10 +272,7 @@ def draw_experiment_layouts():
     """2x4 grid of transfer experiments on the Camden OSM basemap:
     training tiles (blue) vs the held-out test tile (red)."""
     from matplotlib.patches import Patch
-    fig, axes = plt.subplots(2, 4, figsize=(22, 12))
-    row_labels = {"transfer1": "Spatial Transfer 1", "transfer2": "Spatial Transfer 2"}
-    col_labels = {1: "1 training tile", 3: "3 training tiles",
-                  8: "8 training tiles", 15: "15 training tiles"}
+    fig, axes = plt.subplots(2, 4, figsize=(22, 11))
     for r, tname in enumerate(("transfer1", "transfer2")):
         spec = EXPERIMENTS[tname]; test = spec["test"]
         for c, k in enumerate((1, 3, 8, 15)):
@@ -293,16 +293,12 @@ def draw_experiment_layouts():
             for i in range(5):                    # 4x4 grid lines
                 ax.axvline(CHILD_XMIN + i * _TILE * GRID_RES_M, color="k", lw=0.4, alpha=0.4)
                 ax.axhline(CHILD_YMIN + i * _TILE * GRID_RES_M, color="k", lw=0.4, alpha=0.4)
-            if r == 0:
-                ax.set_title(col_labels[k], fontsize=20, fontweight="bold", pad=12)
-            if c == 0:
-                ax.set_ylabel(row_labels[tname], fontsize=20, fontweight="bold", labelpad=14)
+            ax.set_title(f"{tname}  —  {k}:1   (train {len(train)}, test 1)", fontsize=11)
             ax.set_xticks([]); ax.set_yticks([])
     fig.legend(handles=[Patch(facecolor="tab:blue", alpha=0.35, label="training tile"),
                         Patch(facecolor="tab:red",  alpha=0.45, label="test (held-out) tile")],
-               loc="lower center", ncol=2, fontsize=18, bbox_to_anchor=(0.5, 0.0))
+               loc="lower center", ncol=2, fontsize=13, bbox_to_anchor=(0.5, 0.0))
     fig.tight_layout(rect=[0, 0.03, 1, 1])
-    fig.subplots_adjust(wspace=0.18, hspace=0.12)
     fig.savefig(os.path.join(FIG_DIR, "transfer_layouts.png"), dpi=DPI, bbox_inches="tight")
     plt.close(fig)
     print("Saved transfer_layouts.png")

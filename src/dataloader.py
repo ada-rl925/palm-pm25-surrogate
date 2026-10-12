@@ -3,7 +3,7 @@ dataloader.py — PALMDatasetV2 with 3-D emission routing (9 input channels).
 
 Surface emission is placed at the z level corresponding to the actual emission
 surface (terrain + rooftop), rather than being broadcast uniformly across all
-levels.  The three static channels (street_type, buildings_2d, zt) are removed.
+levels.
 
 Output shape of __getitem__
 ---------------------------
@@ -73,6 +73,86 @@ SIM_CONFIG = {
         'extra_out':   ['london_cm20190908_OUTPUT', 'london_cm20190909_OUTPUT'],
         'sim_hours':   144,
     },
+    # ── Evaluation-only episodes (not in the published train/test split) ─────────
+    # New raw PALM runs under PALM_DATA_DIR; same Camden domain (static identical,
+    # verified pixel-wise), so the pre-baked topo/emission_z apply. Each extra entry
+    # carries `dir` (its on-disk folder) and `out_subdir=''` because the av_xy files
+    # sit directly in that folder (no OUTPUT/ subdir). The three episodes above omit
+    # both fields, so `.get(...)` falls back to the original layout — behaviour for
+    # the published experiments is unchanged.
+    'london_cm20191002-1003': {
+        'label': 'Oct02', 'chem_file': 'london_cm20191002_chemistry',
+        'static_file': 'london_cm20191002_static', 'dyn_file': 'london_cm20191002_dynamic',
+        'extra_out': [], 'sim_hours': 72,
+        'dir': 'london_cm20191002-1003_OUTPUT_av_xy', 'out_subdir': '', 'eval_only': True,
+    },
+    'london_cm20191018-1019': {
+        'label': 'Oct18', 'chem_file': 'london_cm20191018_chemistry',
+        'static_file': 'london_cm20191018_static', 'dyn_file': 'london_cm20191018_dynamic',
+        'extra_out': [], 'sim_hours': 72,
+        'dir': 'london_cm20191018-1019_OUTPUT_av_xy', 'out_subdir': '', 'eval_only': True,
+    },
+    'london_cm20191021-1022': {
+        'label': 'Oct21', 'chem_file': 'london_cm20191021_chemistry',
+        'static_file': 'london_cm20191021_static', 'dyn_file': 'london_cm20191021_dynamic',
+        'extra_out': [], 'sim_hours': 72,
+        'dir': 'london_cm20191021-1022_OUTPUT_av_xy', 'out_subdir': '', 'eval_only': True,
+    },
+    'london_cm20191026-1028': {
+        'label': 'Oct26', 'chem_file': 'london_cm20191026_chemistry',
+        'static_file': 'london_cm20191026_static', 'dyn_file': 'london_cm20191026_dynamic',
+        'extra_out': [], 'sim_hours': 96,
+        'dir': 'london_cm20191026-1028_OUTPUT_av_xy', 'out_subdir': '', 'eval_only': True,
+    },
+    'london_cm20200904-0906': {
+        'label': 'Sep20a', 'chem_file': 'london_cm20200904_chemistry',
+        'static_file': 'london_cm20200904_static', 'dyn_file': 'london_cm20200904_dynamic',
+        'extra_out': [], 'sim_hours': 48,
+        'dir': 'london_cm20200904-0906_OUTPUT_av_xy', 'out_subdir': '', 'eval_only': True,
+    },
+    'london_cm20200906-0908': {
+        'label': 'Sep20b', 'chem_file': 'london_cm20200906_chemistry',
+        'static_file': 'london_cm20200906_static', 'dyn_file': 'london_cm20200906_dynamic',
+        'extra_out': [], 'sim_hours': 48,
+        'dir': 'london_cm20200906-0908_OUTPUT_av_xy', 'out_subdir': '', 'eval_only': True,
+    },
+    # ── Second batch of evaluation-only episodes: Jan 2019 (winter) + more Oct 2019 ──
+    'london_cm20190102-0105': {
+        'label': 'Jan02', 'chem_file': 'london_cm20190102_chemistry',
+        'static_file': 'london_cm20190102_static', 'dyn_file': 'london_cm20190102_dynamic',
+        'extra_out': [], 'sim_hours': 96,
+        'dir': 'london_cm20190102-0105_OUTPUT_av_xy', 'out_subdir': '', 'eval_only': True,
+    },
+    'london_cm20190108-0109': {
+        'label': 'Jan08', 'chem_file': 'london_cm20190108_chemistry',
+        'static_file': 'london_cm20190108_static', 'dyn_file': 'london_cm20190108_dynamic',
+        'extra_out': [], 'sim_hours': 48,
+        'dir': 'london_cm20190108-0109_OUTPUT_av_xy', 'out_subdir': '', 'eval_only': True,
+    },
+    'london_cm20190122-0123': {
+        'label': 'Jan22', 'chem_file': 'london_cm20190122_chemistry',
+        'static_file': 'london_cm20190122_static', 'dyn_file': 'london_cm20190122_dynamic',
+        'extra_out': [], 'sim_hours': 48,
+        'dir': 'london_cm20190122-0123_OUTPUT_av_xy', 'out_subdir': '', 'eval_only': True,
+    },
+    'london_cm20191011': {
+        'label': 'Oct11', 'chem_file': 'london_cm20191011_chemistry',
+        'static_file': 'london_cm20191011_static', 'dyn_file': 'london_cm20191011_dynamic',
+        'extra_out': [], 'sim_hours': 24,
+        'dir': 'london_cm20191011_OUTPUT_av_xy', 'out_subdir': '', 'eval_only': True,
+    },
+    'london_cm20191016': {
+        'label': 'Oct16', 'chem_file': 'london_cm20191016_chemistry',
+        'static_file': 'london_cm20191016_static', 'dyn_file': 'london_cm20191016_dynamic',
+        'extra_out': [], 'sim_hours': 48,
+        'dir': 'london_cm20191016_OUTPUT_av_xy', 'out_subdir': '', 'eval_only': True,
+    },
+    'london_cm20191029-1031': {
+        'label': 'Oct29', 'chem_file': 'london_cm20191029_chemistry',
+        'static_file': 'london_cm20191029_static', 'dyn_file': 'london_cm20191029_dynamic',
+        'extra_out': [], 'sim_hours': 71,
+        'dir': 'london_cm20191029-1031_OUTPUT_av_xy', 'out_subdir': '', 'eval_only': True,
+    },
 }
 
 # ── Vertical level mapping ────────────────────────────────────────────────────
@@ -93,9 +173,9 @@ DYN_PROFILE_VARS = [
 ]
 DYN_SCALAR_VARS = ['surface_forcing_surface_pressure']
 
-DYN_PROFILE_DIM = len(DYN_PROFILE_VARS) * N_Z   # 85
+DYN_PROFILE_DIM = len(DYN_PROFILE_VARS) * N_Z   # 80
 DYN_SCALAR_DIM  = len(DYN_SCALAR_VARS)           # 1
-DYN_TOTAL_DIM   = DYN_PROFILE_DIM + DYN_SCALAR_DIM  # 86
+DYN_TOTAL_DIM   = DYN_PROFILE_DIM + DYN_SCALAR_DIM  # 81
 
 DYN_PM25_SLICE = slice(4 * N_Z, 5 * N_Z)  # ls_forcing_left_PM25 in dynamic vector
 
@@ -174,8 +254,13 @@ class PALMDatasetV2(Dataset):
         mask_region:    Optional[Tuple[int,int,int,int]]  = None,
         exclude_region: Optional[Tuple[int,int,int,int]]  = None,
         augment:        bool                             = False,
+        topo_input:     bool                             = False,
+        mask_input:     bool                             = False,
     ):
-        self.sims           = sims or list(SIM_CONFIG.keys())
+        # Default to the published train/test episodes only; evaluation-only
+        # episodes (eval_only=True) must be requested explicitly via `sims=`.
+        self.sims           = sims or [k for k, v in SIM_CONFIG.items()
+                                       if not v.get('eval_only')]
         self.normalise      = normalise
         self.global_pm_norm = global_pm_norm
         self.roi            = roi
@@ -207,6 +292,19 @@ class PALMDatasetV2(Dataset):
         # physical space:  u'_norm = -u_norm - 2*mean/std.
         self.augment        = augment
         self.prognostic     = prognostic
+        # topo_input: if True, append two static spatial channels (building height,
+        # terrain height; both z-scored, broadcast over z) after the emission
+        # channels — the "explicit urban topography" ablation. Loaded from the
+        # pre-baked data/topo.npy (2, 800, 800). Default False = published model.
+        self.topo_input     = topo_input
+        self._topo          = None
+        if topo_input:
+            topo_path = os.path.join(BASE_DIR, 'topo.npy')
+            self._topo = np.load(topo_path).astype(np.float32)   # (2, 800, 800)
+        # mask_input: if True, append one spatial channel = the valid mask
+        # (1 = valid/non-building air, 0 = inside building) right after the emission
+        # channels — the "explicit building mask" ablation. Default False = published.
+        self.mask_input     = mask_input
 
         # Per-pixel z level at which the surface emission is injected. The compact
         # dataset ships this as a pre-baked field (emission_z.npy) so the OS-derived
@@ -261,10 +359,17 @@ class PALMDatasetV2(Dataset):
     def _load_emissions(self, sim_name: str) -> np.ndarray:
         """Returns (T, 800, 800) raw PM25 values."""
         cfg  = SIM_CONFIG[sim_name]
-        path = os.path.join(BASE_DIR, sim_name, 'INPUT', cfg['chem_file'])
+        path = os.path.join(BASE_DIR, cfg.get('dir', sim_name), 'INPUT', cfg['chem_file'])
         with nc.Dataset(path) as ds:
             t_hrs = np.array(ds.variables['time'][:])
-            mask  = t_hrs <= cfg['sim_hours']
+            # Emission `time` is in hours from a campaign epoch; some episodes begin
+            # at an absolute offset (e.g. 409 = output hour 1 of an 18 Oct run), so a
+            # bare `t <= sim_hours` would drop every step. Convert to a 1-based
+            # relative hour (first entry = output hour 1) before selecting the
+            # simulated span. The compact episodes have time already = 1..sim_hours,
+            # so this is identical to the original filter for the published data.
+            rel   = t_hrs - t_hrs.min() + 1
+            mask  = rel <= cfg['sim_hours']
             names = [''.join(
                 [c.decode() if isinstance(c, bytes) else ''
                  for c in row if not np.ma.is_masked(c)]
@@ -279,9 +384,9 @@ class PALMDatasetV2(Dataset):
 
     # ── Dynamic ───────────────────────────────────────────────────────────────
     def _load_dynamic(self, sim_name: str) -> np.ndarray:
-        """Returns (T, 86): 5 profiles × 16 PALM levels + surface_pressure."""
+        """Returns (T, 81): 5 profiles × 16 PALM levels + surface_pressure."""
         cfg  = SIM_CONFIG[sim_name]
-        path = os.path.join(BASE_DIR, sim_name, 'INPUT', cfg['dyn_file'])
+        path = os.path.join(BASE_DIR, cfg.get('dir', sim_name), 'INPUT', cfg['dyn_file'])
         with nc.Dataset(path) as ds:
             profiles = [np.array(ds.variables[v][:, PALM_Z_IDX], dtype=np.float32)
                         for v in DYN_PROFILE_VARS]
@@ -289,7 +394,7 @@ class PALMDatasetV2(Dataset):
                         for v in DYN_SCALAR_VARS]
         return np.concatenate(
             profiles + [s[:, np.newaxis] for s in scalars], axis=1
-        )  # (T, 86)
+        )  # (T, 81)
 
     def _get_dynamic_at(self, sim_name: str, t_hour: int) -> np.ndarray:
         dyn = self._dynamics[sim_name]
@@ -307,7 +412,7 @@ class PALMDatasetV2(Dataset):
         index = []
         for sim in self.sims:
             cfg   = SIM_CONFIG[sim]
-            out   = os.path.join(BASE_DIR, sim, 'OUTPUT')
+            out   = os.path.join(BASE_DIR, cfg.get('dir', sim), cfg.get('out_subdir', 'OUTPUT'))
             files = sorted(glob.glob(os.path.join(out, '*_av_xy.*.nc')))
             for ext in cfg['extra_out']:
                 files += sorted(glob.glob(
@@ -388,6 +493,18 @@ class PALMDatasetV2(Dataset):
             emission_z = emission_z[     y0:y1, x0:x1]
 
         H, W = emission_z.shape
+
+        # Raw PALM av_xy holds all output levels (e.g. 16); the compact dataset is
+        # pre-trimmed to the used levels. When the target carries more levels than
+        # z_range selects, crop it (and its mask) down now so normalisation aligns
+        # with the per-level stats (which span z_range). The later z_range crop then
+        # acts as a no-op on the already-trimmed target. Pre-trimmed compact data
+        # does not meet this condition, so its behaviour is unchanged.
+        if self.z_range is not None and pm25.shape[0] > (self.z_range[1] - self.z_range[0]):
+            z0, z1     = self.z_range
+            pm25       = pm25[z0:z1]
+            valid_mask = valid_mask[z0:z1]
+
         s = self._stats if (self.normalise and self._stats is not None) else None
 
         if s is not None:
@@ -411,18 +528,25 @@ class PALMDatasetV2(Dataset):
         #                     stays 0, i.e. aliases an average-emission cell.
         rows, cols = np.meshgrid(np.arange(H), np.arange(W), indexing='ij')
 
-        def _p(a):  # (N_Z,) → (N_Z,H,W) same value at every (y,x) per level
+        # Conditioning is horizontally uniform, so each per-level profile / scalar is
+        # broadcast to a full (N_Z,H,W) plane. The model reads it back at (0,0), so
+        # this broadcast is only to keep a single input tensor (it carries no extra
+        # spatial information).
+        def _p(a):  # per-level profile (N_Z,) → (N_Z,H,W), same value at every (y,x)
             return np.broadcast_to(a[:, np.newaxis, np.newaxis], (N_Z, H, W))
 
         def _c(v):  # scalar → (N_Z,H,W)
             return np.full((N_Z, H, W), v, dtype=np.float32)
 
+        # Build one feature block per time step (t, t-1, ...). Normalisation (log1p /
+        # z-score) is applied to the compact profiles/fields here, *before* the
+        # broadcast above.
         em_blocks, cond_blocks = [], []
         for j in range(self.t_hist + 1):
             t_j = max(t_hour - j, 1)            # clamp before simulation start
             em  = np.log1p(self._get_emission_at(sim, t_j) * PM25_SCALE)
             dyn = self._get_dynamic_at(sim, t_j)
-            dyn[DYN_PM25_SLICE] = np.log1p(dyn[DYN_PM25_SLICE] * PM25_SCALE)
+            dyn[DYN_PM25_SLICE] = np.log1p(dyn[DYN_PM25_SLICE] * PM25_SCALE)  # boundary PM2.5
             te  = self._time_enc(t_abs - timedelta(hours=t_hour - t_j))
 
             if self.roi is not None:
@@ -431,8 +555,10 @@ class PALMDatasetV2(Dataset):
             if s is not None:
                 if not self.em_bg_norm:
                     em = (em - s['emission']['mean']) / s['emission']['std']
-                dyn = (dyn - s['dynamic']['mean']) / s['dynamic']['std']
+                dyn = (dyn - s['dynamic']['mean']) / s['dynamic']['std']  # per-level z-score
 
+            # Scatter the 2-D emission into the 3-D volume: each pixel's value lands
+            # at its emission_z level (terrain+building rooftop), 0 elsewhere.
             em_3d = np.zeros((N_Z, H, W), dtype=np.float32)
             em_3d[emission_z, rows, cols] = em  # vectorised scatter
             if s is not None and self.em_bg_norm:
@@ -450,17 +576,42 @@ class PALMDatasetV2(Dataset):
                 _c(te[1]),                                 # hour_cos
             ], axis=0))
 
-        # Prognostic mode: insert pm25(t-1) as a spatial channel right after the
-        # emission block(s). Layout: [em(t)..em(t-K), pm25(t-1)] + cond blocks.
+        # Final channel layout is block-ordered, NOT interleaved per variable:
+        #   [em(t), em(t-1)] then [u,v,pt,qv,PM25,pressure,hour_sin,hour_cos](t)
+        #                    then the same 8-channel block for (t-1).
+        # e.g. for t_hist=1: ch0-1 emission, ch2-9 cond(t), ch10-17 cond(t-1).
         spatial_parts = [np.stack(em_blocks, axis=0)]
+        if self.mask_input:
+            # Explicit building-mask ablation: one spatial channel = the valid mask
+            # (1 = valid air, 0 = inside building), right after the emission block(s):
+            #   [em(t)..em(t-K), mask] + cond blocks. Padded up to N_Z (levels above
+            # the canopy are all valid; z_range later crops back to the used levels).
+            m = np.ones((N_Z, H, W), dtype=np.float32)
+            m[:valid_mask.shape[0]] = valid_mask.astype(np.float32)
+            spatial_parts.append(m[np.newaxis])            # (1, N_Z, H, W)
+        if self.topo_input:
+            # Explicit-topography ablation: two static channels (building, terrain
+            # height) right after the emission block(s), broadcast over z:
+            #   [em(t)..em(t-K), building, terrain] + cond blocks.
+            if self.roi is not None:
+                ty0, ty1, tx0, tx1 = self.roi
+                topo = self._topo[:, ty0:ty1, tx0:tx1]     # (2, H, W)
+            else:
+                topo = self._topo
+            topo_3d = np.broadcast_to(topo[:, np.newaxis, :, :], (topo.shape[0], N_Z, H, W))
+            spatial_parts.append(np.ascontiguousarray(topo_3d, dtype=np.float32))
         if self.prognostic:
+            # Prognostic mode: insert pm25(t-1) as a spatial channel right after the
+            # emission block(s): [em(t)..em(t-K), pm25(t-1)] + cond blocks.
             spatial_parts.append(self._prev_field(sim, t_hour, H, W)[np.newaxis])
         x = np.concatenate(
             spatial_parts + cond_blocks, axis=0
         ).astype(np.float32)                               # (C, N_Z, H, W)
 
         if self.zero_channels:
-            x[self.zero_channels] = 0.0   # ablate listed input channels (slim-input study)
+            # Input ablation: zeroing a z-scored channel = setting it to its mean
+            # (no information), which cleanly removes that variable.
+            x[self.zero_channels] = 0.0
 
         if self.mask_region is not None:   # zero emission input in a region (spatial inpainting)
             y0, y1, x0, x1 = self.mask_region
@@ -489,7 +640,9 @@ class PALMDatasetV2(Dataset):
                 valid_mask = valid_mask[...,  iy:iy+ps, ix:ix+ps]
 
         if self.augment:
-            nsp = self.t_hist + 1 + (1 if self.prognostic else 0)  # spatial channels
+            nsp = (self.t_hist + 1 + (1 if self.prognostic else 0)
+                   + (self._topo.shape[0] if self.topo_input else 0)
+                   + (1 if self.mask_input else 0))  # spatial channels
 
             def _flip_wind(comp):   # comp 0=u, 1=v: physical sign flip in z-scored space
                 for j in range(self.t_hist + 1):
@@ -519,7 +672,7 @@ class PALMDatasetV2(Dataset):
             valid_mask = valid_mask[z0:z1]
 
         return (
-            torch.from_numpy(x),                       # (9, N_Z, H, W)
+            torch.from_numpy(x),                       # (18, N_Z, H, W)
             torch.from_numpy(pm25),                    # (N_Z, H, W)
             torch.from_numpy(valid_mask),              # (N_Z, H, W) bool
         )
@@ -643,7 +796,9 @@ def temporal_split(
     **dataset_kwargs,
 ) -> Tuple[PALMDatasetV2, PALMDatasetV2, PALMDatasetV2]:
     """Time-based train/val/test split using PALMDatasetV2 (9-channel emission routing)."""
-    sims       = sims       or list(SIM_CONFIG.keys())
+    # Default to the published train/test episodes only; evaluation-only episodes
+    # (eval_only=True) are included only when named explicitly via `sims`.
+    sims       = sims       or [k for k, v in SIM_CONFIG.items() if not v.get('eval_only')]
     val_hours  = val_hours  or {}
     test_hours = test_hours or {}
 

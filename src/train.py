@@ -9,6 +9,7 @@ Usage:
 """
 
 import argparse
+import csv
 import json
 import math
 import os
@@ -26,8 +27,31 @@ import yaml
 
 sys.path.insert(0, os.path.dirname(__file__))
 from dataloader import temporal_split, N_Z
-from model import PhysicsLoss, masked_mse, UNet3DFiLM
-from utils import CSVLogger
+from model import PhysicsLoss, UNet3DFiLM
+
+
+# ── Logging ───────────────────────────────────────────────────────────────────
+
+class CSVLogger:
+    """Append-mode CSV logger. Writes the header on the first log() call."""
+
+    def __init__(self, path):
+        self.path = Path(path)
+        self._file = None
+        self._writer = None
+
+    def log(self, row: dict):
+        if self._file is None:
+            self._file = open(self.path, 'w', newline='')
+            self._writer = csv.DictWriter(self._file, fieldnames=list(row.keys()))
+            self._writer.writeheader()
+        self._writer.writerow(row)
+        self._file.flush()
+
+    def close(self):
+        if self._file is not None:
+            self._file.close()
+            self._file = None
 
 
 # ── Config / seed ─────────────────────────────────────────────────────────────
@@ -55,7 +79,8 @@ def build_datasets(cfg: dict):
     z_range    = tuple(dcfg['z_range']) if dcfg.get('z_range') else None
 
     split_fn = temporal_split
-    split_kw = dict(val_hours=val_hours, test_hours=test_hours,
+    split_kw = dict(sims=dcfg.get('sims'),
+                    val_hours=val_hours, test_hours=test_hours,
                     roi=roi, normalise=True,
                     global_pm_norm=dcfg.get('global_pm_norm', True),
                     z_range=z_range,
@@ -63,6 +88,8 @@ def build_datasets(cfg: dict):
                     t_hist=dcfg.get('t_hist', 0),
                     prognostic=dcfg.get('prognostic', False),
                     zero_channels=dcfg.get('zero_channels', None),
+                    topo_input=dcfg.get('topo_input', False),
+                    mask_input=dcfg.get('mask_input', False),
                     mask_region=tuple(dcfg['mask_region']) if dcfg.get('mask_region') else None)
 
     # ── spatial tile-holdout (additive; only when data.tile_size is set) ──
@@ -143,6 +170,8 @@ def build_model(cfg: dict):
         use_attention=mc.get('use_attention', False),
         attn_heads=mc.get('attn_heads', 4),
         n_down=mc.get('n_down', 3),
+        use_film=mc.get('use_film', True),        # ablation: False = no FiLM conditioning
+        conv_type=mc.get('conv_type', 'asym'),    # ablation: 'iso' = isotropic (3,3,3) conv
     )
 
 
@@ -400,6 +429,8 @@ def main():
         t0      = time.time()
         train_m = train_one_epoch(model, train_loader, loss_fn, optimizer, cfg, device, stats)
 
+        # `monitor` drives the LR scheduler and best-checkpoint selection. With no
+        # validation set (the deliberate design here) it falls back to the train loss.
         if has_val:
             val_m   = evaluate(model, val_loader, loss_fn, device, stats)
             monitor = val_m['total']
@@ -432,6 +463,8 @@ def main():
               f'train={train_m["total"]:.3e}{val_str}  '
               f'rmse={train_m["rmse"]:.4f}  lr={lr:.1e}  {time.time()-t0:.0f}s')
 
+        # last.pt = the latest epoch (saved every epoch, for --resume).
+        # best.pt = the epoch with the lowest `monitor` (used for eval / release).
         save_checkpoint(ckpt_dir / 'last.pt', model, optimizer, scheduler,
                         epoch + 1, best_val, cfg, stats)
         if monitor < best_val:

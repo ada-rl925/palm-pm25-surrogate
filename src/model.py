@@ -22,7 +22,13 @@ Z_HEIGHTS = np.array([
 # ── Building blocks ───────────────────────────────────────────────────────────
 
 class AsymConv3D(nn.Module):
-    """(1,3,3) spatial conv → (3,1,1) vertical conv, each with GroupNorm + ReLU."""
+    """Factorised 3-D conv: (1,3,3) horizontal conv → (3,1,1) vertical conv, each
+    with GroupNorm + ReLU.
+
+    Splitting a 3x3x3 kernel into a horizontal then a vertical stage separates
+    horizontal transport from vertical structure and is ~2x cheaper in parameters.
+    GroupNorm (not BatchNorm) because the 3-D volumes force a tiny batch size.
+    """
 
     def __init__(self, in_ch: int, out_ch: int, dropout: float = 0.0):
         super().__init__()
@@ -45,14 +51,49 @@ class AsymConv3D(nn.Module):
         return self.vertical(self.spatial(x))
 
 
-class Down3D(nn.Module):
-    """MaxPool xy by 2 (z unchanged) → AsymConv3D."""
+class IsoConv3D(nn.Module):
+    """Isotropic ablation of AsymConv3D: two standard (3,3,3) conv stages with
+    GroupNorm + ReLU, replacing the factorised (1,3,3)+(3,1,1) kernels. Same depth
+    and channel counts, so the only change is the kernel shape (full 3-D vs
+    horizontal/vertical factorisation). Used only when conv_type='iso'."""
 
     def __init__(self, in_ch: int, out_ch: int, dropout: float = 0.0):
         super().__init__()
+        g = min(8, out_ch)
+        self.conv1 = nn.Sequential(
+            nn.Conv3d(in_ch, out_ch, (3, 3, 3), padding=(1, 1, 1), bias=False),
+            nn.GroupNorm(g, out_ch),
+            nn.ReLU(inplace=True),
+        )
+        layers = [
+            nn.Conv3d(out_ch, out_ch, (3, 3, 3), padding=(1, 1, 1), bias=False),
+            nn.GroupNorm(g, out_ch),
+            nn.ReLU(inplace=True),
+        ]
+        if dropout > 0:
+            layers.append(nn.Dropout3d(dropout))
+        self.conv2 = nn.Sequential(*layers)
+
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        return self.conv2(self.conv1(x))
+
+
+def _conv_block(in_ch: int, out_ch: int, dropout: float = 0.0, conv_type: str = 'asym'):
+    """Factory: AsymConv3D (default) or IsoConv3D (conv_type='iso'). Default keeps
+    the exact AsymConv3D module so existing checkpoints load unchanged."""
+    if conv_type == 'iso':
+        return IsoConv3D(in_ch, out_ch, dropout)
+    return AsymConv3D(in_ch, out_ch, dropout)
+
+
+class Down3D(nn.Module):
+    """MaxPool xy by 2 (z unchanged) → conv block (asym | iso)."""
+
+    def __init__(self, in_ch: int, out_ch: int, dropout: float = 0.0, conv_type: str = 'asym'):
+        super().__init__()
         self.net = nn.Sequential(
             nn.MaxPool3d((1, 2, 2)),
-            AsymConv3D(in_ch, out_ch, dropout),
+            _conv_block(in_ch, out_ch, dropout, conv_type),
         )
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
@@ -60,11 +101,12 @@ class Down3D(nn.Module):
 
 
 class Up3D(nn.Module):
-    """Upsample xy by 2 (z unchanged), concat skip, AsymConv3D."""
+    """Upsample xy by 2 (z unchanged), concat skip, conv block (asym | iso)."""
 
-    def __init__(self, up_ch: int, skip_ch: int, out_ch: int, dropout: float = 0.0):
+    def __init__(self, up_ch: int, skip_ch: int, out_ch: int, dropout: float = 0.0,
+                 conv_type: str = 'asym'):
         super().__init__()
-        self.conv = AsymConv3D(up_ch + skip_ch, out_ch, dropout)
+        self.conv = _conv_block(up_ch + skip_ch, out_ch, dropout, conv_type)
 
     def forward(self, x: torch.Tensor, skip: torch.Tensor) -> torch.Tensor:
         x = F.interpolate(x, scale_factor=(1., 2., 2.),
@@ -178,17 +220,28 @@ class UNet3DFiLM(nn.Module):
         use_attention: bool = False,
         attn_heads:    int  = 4,
         n_down:        int  = 3,
+        use_film:      bool = True,
+        conv_type:     str  = 'asym',
     ):
         super().__init__()
         self.n_z        = n_z
         self.spatial_ch = spatial_ch
         self.n_down     = n_down   # 3 = legacy; 4 adds one pooling level (smaller bottleneck)
-        # one 8-ch conditioning block per time step (1 for legacy layouts)
+        # Ablation switches (defaults reproduce the published model exactly):
+        #   use_film=False  -> skip FiLM conditioning (meteorology not injected)
+        #   conv_type='iso' -> replace AsymConv3D with isotropic (3,3,3) IsoConv3D
+        #   use_attention=False (existing) -> skip bottleneck self-attention
+        self.use_film   = use_film
+        # Conditioning is one COND_DIM-channel block per time step (t, t-1); the
+        # remaining `in_ch - spatial_ch` channels are those blocks.
         self.n_blocks   = max((in_ch - spatial_ch) // COND_DIM, 1)
         cond_dim        = COND_DIM * self.n_blocks
         b = base_ch
 
-        # height encoding (same log1p z-score as UNet3D)
+        # Height encoding: log1p z-score of the physical level heights, stored as a
+        # fixed per-level buffer (1,1,n_z,1,1). Static across samples, so it is baked
+        # into the model rather than supplied by the dataloader; concatenated as an
+        # extra conv input channel in forward().
         z = np.log1p(Z_HEIGHTS[z_start:z_start + n_z])
         z = (z - z.mean()) / (z.std() + 1e-8)
         self.register_buffer(
@@ -196,16 +249,16 @@ class UNet3DFiLM(nn.Module):
             torch.tensor(z, dtype=torch.float32).view(1, 1, n_z, 1, 1),
         )
 
-        spatial_in = spatial_ch + 1   # +1 height channel
+        spatial_in = spatial_ch + 1   # emission channels + 1 height channel -> encoder
 
         # Encoder
-        self.inc   = AsymConv3D(spatial_in, b,     dropout)
+        self.inc   = _conv_block(spatial_in, b, dropout, conv_type)
         self.film0 = FiLMLayer(cond_dim, b)
-        self.down1 = Down3D(b,     b * 2, dropout)
+        self.down1 = Down3D(b,     b * 2, dropout, conv_type)
         self.film1 = FiLMLayer(cond_dim, b * 2)
-        self.down2 = Down3D(b * 2, b * 4, dropout)
+        self.down2 = Down3D(b * 2, b * 4, dropout, conv_type)
         self.film2 = FiLMLayer(cond_dim, b * 4)
-        self.down3 = Down3D(b * 4, b * 8, dropout)
+        self.down3 = Down3D(b * 4, b * 8, dropout, conv_type)
         self.film3 = FiLMLayer(cond_dim, b * 8)
 
         # Optional extra pooling level (n_down=4): bottleneck becomes b*16 at H/16.
@@ -213,7 +266,7 @@ class UNet3DFiLM(nn.Module):
         # for global attention. Only created for n_down>=4 -> legacy checkpoints
         # (n_down=3) keep identical state-dict keys and still load.
         if n_down >= 4:
-            self.down4    = Down3D(b * 8, b * 16, dropout)
+            self.down4    = Down3D(b * 8, b * 16, dropout, conv_type)
             self.film_d4  = FiLMLayer(cond_dim, b * 16)
             bott_ch = b * 16
         else:
@@ -221,17 +274,17 @@ class UNet3DFiLM(nn.Module):
             bott_ch = b * 8
         self.attn  = BottleneckAttention(bott_ch, attn_heads, dropout) if use_attention else None
         if n_down >= 4:
-            self.up0     = Up3D(b * 16, b * 8, b * 8, dropout)
+            self.up0     = Up3D(b * 16, b * 8, b * 8, dropout, conv_type)
             self.film_u0 = FiLMLayer(cond_dim, b * 8)
         else:
             self.up0 = self.film_u0 = None
 
         # Decoder
-        self.up1   = Up3D(b * 8, b * 4, b * 4, dropout)
+        self.up1   = Up3D(b * 8, b * 4, b * 4, dropout, conv_type)
         self.film4 = FiLMLayer(cond_dim, b * 4)
-        self.up2   = Up3D(b * 4, b * 2, b * 2, dropout)
+        self.up2   = Up3D(b * 4, b * 2, b * 2, dropout, conv_type)
         self.film5 = FiLMLayer(cond_dim, b * 2)
-        self.up3   = Up3D(b * 2, b,     b,     dropout)
+        self.up3   = Up3D(b * 2, b,     b,     dropout, conv_type)
         self.film6 = FiLMLayer(cond_dim, b)
 
         self.head  = nn.Conv3d(b, 1, kernel_size=1)
@@ -257,34 +310,47 @@ class UNet3DFiLM(nn.Module):
             feats += [era5, pres, time]
         return torch.cat(feats, dim=-1)              # (B, N_Z, 8 * n_blocks)
 
+    def _film(self, layer, feat, cond):
+        """Apply a FiLM layer, or bypass it (identity) when use_film is False
+        (no-FiLM ablation). Default use_film=True reproduces the published model."""
+        return layer(feat, cond) if self.use_film else feat
+
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         B, _, Z, H, W = x.shape
 
-        cond   = self._extract_cond(x)                        # (B, N_Z, 8)
-        x_spat = x[:, :self.spatial_ch]                       # (B, spatial_ch, N_Z, H, W)
+        # Two-stream input split. Only the spatially-varying emission channels go
+        # through the convolutional backbone; the horizontally-uniform meteorology
+        # is pulled out as a per-level conditioning vector and drives FiLM instead.
+        cond   = self._extract_cond(x)                        # (B, N_Z, cond_dim)
+        x_spat = x[:, :self.spatial_ch]                       # emission (t, t-1)
+        # Height is a static per-level positional signal, concatenated as an extra
+        # conv channel (not FiLM) so the convolutions can build vertical structure.
         h_enc  = self.height_enc.expand(B, -1, Z, H, W)
         x_in   = torch.cat([x_spat, h_enc], dim=1)            # (B, spatial_ch+1, N_Z, H, W)
 
-        x1 = self.film0(self.inc(x_in),    cond)
-        x2 = self.film1(self.down1(x1),    cond)
-        x3 = self.film2(self.down2(x2),    cond)
-        x4 = self.film3(self.down3(x3),    cond)
+        # Encoder: each conv block is followed by a FiLM layer that modulates its
+        # features (per-channel, per-level γ/β) with the meteorological conditioning.
+        x1 = self._film(self.film0, self.inc(x_in),    cond)
+        x2 = self._film(self.film1, self.down1(x1),    cond)
+        x3 = self._film(self.film2, self.down2(x2),    cond)
+        x4 = self._film(self.film3, self.down3(x3),    cond)
 
         if self.down4 is not None:                 # extra pooling level (n_down=4)
-            x5 = self.film_d4(self.down4(x4), cond)
-            if self.attn is not None:
+            x5 = self._film(self.film_d4, self.down4(x4), cond)
+            if self.attn is not None:              # bottleneck self-attention (per z level)
                 x5 = self.attn(x5)
-            y  = self.film_u0(self.up0(x5, x4), cond)
+            y  = self._film(self.film_u0, self.up0(x5, x4), cond)
         else:
             if self.attn is not None:
                 x4 = self.attn(x4)
             y  = x4
 
-        y  = self.film4(self.up1(y,  x3),  cond)
-        y  = self.film5(self.up2(y,  x2),  cond)
-        y  = self.film6(self.up3(y,  x1),  cond)
+        # Decoder: upsample, concat the skip connection, conv, FiLM (mirrors encoder).
+        y  = self._film(self.film4, self.up1(y,  x3),  cond)
+        y  = self._film(self.film5, self.up2(y,  x2),  cond)
+        y  = self._film(self.film6, self.up3(y,  x1),  cond)
 
-        return self.head(y).squeeze(1)
+        return self.head(y).squeeze(1)             # 1x1 conv -> single-channel PM2.5
 
 
 # ── Loss ──────────────────────────────────────────────────────────────────────

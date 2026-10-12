@@ -5,8 +5,9 @@ __pycache__/
 .ipynb_checkpoints/
 
 # ─── Data (PALM NetCDF too large for git — distributed separately) ───
-# Ignore everything under data
+# Ignore everything under data/ except its README (points users to the download).
 data/*
+!data/README.md
 *.nc
 
 # ─── Model weights: keep every best.pt (all runs), ignore last.pt and other .pt ───
@@ -14,8 +15,8 @@ data/*
 !**/best.pt
 
 # ─── Training scratch / logs not meant for publication ───
-outputs/_archive/
 outputs/**/tb/
+*.log
 *.sh
 
 # ─── Cached OSM geojson (re-downloaded by src/draw_study_area_map.py) ───

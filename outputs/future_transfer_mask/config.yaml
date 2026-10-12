@@ -1,0 +1,62 @@
+experiment:
+  name: future_transfer_mask
+  seed: 42
+  output_dir: outputs
+data:
+  roi: null
+  dataloader: v2
+  global_pm_norm: false
+  em_bg_norm: true
+  z_range:
+  - 0
+  - 12
+  t_hist: 1
+  batch_size: 1
+  num_workers: 2
+  val_hours: {}
+  mask_input: true
+  sims:
+  - london_cm20190720-23
+  - london_cm20190820-23
+  - london_cm20190904-07
+  - london_cm20200904-0906
+  - london_cm20200906-0908
+  test_hours:
+    london_cm20200904-0906:
+    - 1
+    - 49
+    london_cm20200906-0908:
+    - 1
+    - 49
+model:
+  name: UNet3DFiLM
+  in_ch: 19
+  spatial_ch: 3
+  base_ch: 16
+  dropout: 0.1
+  use_attention: true
+  n_down: 4
+training:
+  epochs: 300
+  early_stop_patience: 20
+  lr: 0.0001
+  weight_decay: 0.005
+  grad_clip: 1.0
+  scheduler:
+    name: plateau
+    patience: 10
+    factor: 0.5
+    min_lr: 1.0e-06
+loss:
+  name: physics
+  lambda_nonneg: 0.1
+  lambda_anom: 1.0
+  lambda_grad: 1.0
+  lambda_pattern: 1.0
+  pattern_min_std: 0.01
+  high_weight: 0.0
+  lambda_spectral: 1.0
+logging:
+  log_every: 10
+_note: 'future-transfer data-scaling: train 336h of 2019 (sims above), test Sep 2020
+  (both). Compact data under data/. Series: 96/192(=orig future_transfer)/336/480/600(=new_future_transfer_mask).'
